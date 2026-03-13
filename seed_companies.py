@@ -61,7 +61,7 @@ def main():
         else:
             print(f"Skipping {symbol} due to fetch error.")
             
-    print(f"\n✅ Seeding complete. {success_count}/{total_tickers} companies processed.")
+    print(f"\nSeeding complete. {success_count}/{total_tickers} companies processed.")
     db_manager.close()
 
 if __name__ == "__main__":

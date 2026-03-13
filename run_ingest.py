@@ -37,7 +37,7 @@ def main():
     if json_backup_data:
         with open("live_ingestion_results.json", "w") as f:
             json.dump(json_backup_data, f, indent=2)
-        print(f"\n✅ Backup saved. Finished processing {len(articles)} articles.")
+        print(f"\nBackup saved. Finished processing {len(articles)} articles.")
 
     db_manager.close()
 
