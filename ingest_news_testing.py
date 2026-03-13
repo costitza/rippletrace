@@ -3,6 +3,7 @@ import json
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from neo4j import GraphDatabase
 
 load_dotenv()
 
@@ -34,6 +35,57 @@ Extract the data strictly in the following JSON format:
 
 Return ONLY valid JSON. Do not include markdown formatting or explanations.
 """
+
+
+def save_to_json(graph_data, filename="extracted_data.json"):
+    print(f"Saving data to {filename}...")
+    try:
+        with open(filename, 'w') as f:
+            json.dump(graph_data, f, indent=2)
+        print("JSON saved successfully.")
+    except Exception as e:
+        print(f"An error occurred while saving JSON: {e}")
+
+
+def send_to_neo4j(graph_data):
+    print("Connecting to Neo4j...")
+    uri = os.getenv("NEO4J_URI")
+    user = os.getenv("NEO4J_USERNAME")
+    password = os.getenv("NEO4J_PASSWORD")
+    
+    driver = GraphDatabase.driver(uri, auth=(user, password)) # type: ignore
+    
+    try:
+        with driver.session() as session:
+            # 1. Create Entities
+            for entity in graph_data.get("entities", []):
+                # Sanitize type by replacing spaces with underscores and using backticks
+                label = entity['type'].replace(" ", "_")
+                # We use both the specific type AND a general 'Entity' label for easier searching
+                # We use 'name' as the primary identifier to align with seed_database.py
+                query = (
+                    f"MERGE (e:`{label}` {{name: $name}}) "
+                    "SET e:Entity "
+                    "RETURN e"
+                )
+                session.run(query, name=entity['id'])
+            
+            # 2. Create Relationships
+            for rel in graph_data.get("relationships", []):
+                # Sanitize relationship type
+                rel_type = rel['type'].replace(" ", "_").upper()
+                # Match nodes by name (the 'id' from extracted data)
+                query = (
+                    "MATCH (a:Entity {name: $source}), (b:Entity {name: $target}) "
+                    f"MERGE (a)-[r:`{rel_type}`]->(b)"
+                )
+                session.run(query, source=rel['source'], target=rel['target'])
+            
+            print("Data successfully sent to Neo4j.")
+    except Exception as e:
+        print(f"An error occurred with Neo4j: {e}")
+    finally:
+        driver.close()
 
 
 def extract_graph_data():
@@ -68,7 +120,11 @@ def extract_graph_data():
         print("Raw output:", response.text)
 
 if __name__ == "__main__":
-    extract_graph_data()
+    data = extract_graph_data()
+    if data:
+        save_to_json(data)
+        send_to_neo4j(data)
+
 
 
 
