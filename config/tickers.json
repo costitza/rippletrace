@@ -1,0 +1,10 @@
+{
+  "tickers": [
+    "AAPL", "MSFT", "TSM", "ASML", "INTC", "NVDA", "AMD", "AVGO", "QCOM", "MU",
+    "TXN", "AMAT", "LRCX", "ADI", "NXPI", "MCHP", "ON", "KLAC", "STLA", "TSLA",
+    "TM", "F", "GM", "HMC", "UPS", "FDX", "ZIM", "MATX", "WMT", "TGT",
+    "HD", "COST", "RIO", "VALE", "BHP", "FCX", "CAT", "DE", "XOM", "CVX",
+    "BP", "SHEL", "BABA", "JD", "PDD", "GOOGL", "META", "CSX", "UNP", "HON",
+    "GE", "MMM", "ORCL", "CSCO", "IBM"
+  ]
+}
