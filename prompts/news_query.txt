@@ -1,1 +1,6 @@
-supply chain disruption OR port strike OR semiconductor shortage OR logistics delay OR shipping crisis OR manufacturing halt OR factory fire OR trade war OR commodity shortage
+supply chain disruption
+port strike
+semiconductor shortage
+factory fire
+logistics delay
+shipping crisis
