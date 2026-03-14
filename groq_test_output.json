@@ -1,0 +1,469 @@
+[
+  {
+    "article_title": "Auto industry monitors Iran war as aluminum, plastics, chip supplies face potential disruption - Automotive News",
+    "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOOG0tcmxaTVQ4M250NDNWbXBYMGk3UHpjbGQzRDdWZnhyZy1CMnhRbVlTR1JoVTFfNEg3Ri1SSjlVOERuYkhhODRJZzhua2VCeVB5cFcwM01oWmxBWTJYZ3lIRTY3MXBrdzlUN2wtRGd6bFJIRmREa0c5LTgzNmpEaGJHWUEtZFB0dXV3MVUzUjZMZw?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Iran",
+          "type": "Region"
+        },
+        {
+          "id": "Aluminum",
+          "type": "Material"
+        },
+        {
+          "id": "Plastics",
+          "type": "Material"
+        },
+        {
+          "id": "Semiconductor chips",
+          "type": "Material"
+        },
+        {
+          "id": "Auto Industry",
+          "type": "Industry"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Iran",
+          "target": "Aluminum",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Iran",
+          "target": "Plastics",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Iran",
+          "target": "Semiconductor chips",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Auto Industry",
+          "target": "Aluminum",
+          "type": "DEPENS_ON"
+        },
+        {
+          "source": "Auto Industry",
+          "target": "Plastics",
+          "type": "DEPENDS_ON"
+        },
+        {
+          "source": "Auto Industry",
+          "target": "Semiconductor chips",
+          "type": "DEPENDS_ON"
+        },
+        {
+          "source": "War",
+          "target": "Iran",
+          "type": "CAUSES_DISRUPTION"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "Iran: Strait of Hormuz crisis jolts auto factories worldwide - Automotive Manufacturing Solutions",
+    "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQUkh0M1BwcG1YNTlrUlZ2ZFIzR3pZeWw2UG52YThMbF9hc1BYUDhRZHh3eDI2Q0F2Q1Uza0xPWjUyemY3YW11NjRwaDBjWThjZXA1QVZRUmRvaTdYbEgwZDAwYzd2Um5RUF9kR3U1Sm5uV0lLY1l6NVIyWTlRd1RSRm1YLWpabXQ3eklfWDlDRWFFT3N1dks5WXB1UzBtdHpqUGh3alc3QndGb1h0ZWM4WG1VdGZZLW9GQXdGbFlFYWFhaEhoZ05ycE1LZ1FCOFp1U2hTNA?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Iran",
+          "type": "Region"
+        },
+        {
+          "id": "Strait of Hormuz",
+          "type": "Region"
+        },
+        {
+          "id": "Automotive Manufacturing Solutions",
+          "type": "Company"
+        },
+        {
+          "id": "Auto factories",
+          "type": "Facility"
+        },
+        {
+          "id": "Crisis",
+          "type": "Event"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Iran",
+          "target": "Strait of Hormuz",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Irregularities in Strait of Hormuz",
+          "target": "Iran",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "Strait of Hormuz crisis",
+          "target": "Auto factories",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "Auto factories",
+          "target": "Automotive Manufacturing Solutions",
+          "type": "DEPENDS_ON"
+        },
+        {
+          "source": "Automotive Manufacturing Solutions",
+          "target": "Auto factories",
+          "type": "OPERATES"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "Iran attacks prompt Red Sea rethink as box shipping exits Strait of Hormuz - Lloyd's List",
+    "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQV01Samk3bU5LSlJTY3VuaFIwNWR0dVRUSnJ5c2stQ3JxSUdqaXhBTDExVldhTFJFbzNCWlJqeERPMGNkNlYtZjFRT0RGdEJ4ZHNZNmJMdXAxbjVLX1hTbGVOMVpXcVVocjd6OFg1UEZtOFM1bXNPS3lfZ3JDQno5SWZkUjJZWVJyNkl0V0dsdTA5anBOVmlhUTZRV0wwbG53YXp3aWJaaDZMdHBxbllwQg?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Lloyd's List",
+          "type": "Company"
+        },
+        {
+          "id": "Red Sea",
+          "type": "Region"
+        },
+        {
+          "id": "Iran",
+          "type": "Region"
+        },
+        {
+          "id": "Strait of Hormuz",
+          "type": "Facility"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Lloyd's List",
+          "target": "Strait of Hormuz",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "Iran",
+          "target": "Strait of Hormuz",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "Lloyd's List",
+          "target": "Red Sea",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Lloyd's List",
+          "target": "Iran",
+          "type": "DEPENDS_ON"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "How the Nexperia chip crisis upended auto supply chains - again - Reuters",
+    "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPQWVVQXdnSE9HSHdPQ0tmNzBtX3N5WlhEX1JVMDRnRnVuUkJmU0YtSGFkZURXSmwwVVd6aHFrWmJ3TXlTcVhNejdFbmxwOWZ5RHZqN0dTbi1MTXpGdENtSWhaMS1qVlpmdDFYaFR6bmlWak45S0VhWlozSkdkQ2p5WF9NazR6NGZObUxKRUgyY1g3UU9HSTRQbXN5eGxhSVBOOXh2cUltdzBSRlVWbkpySHZyMDhaYWltR3doWmhqTl8?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Nexperia",
+          "type": "Company"
+        },
+        {
+          "id": "Reuters",
+          "type": "Entity (News Agency)"
+        },
+        {
+          "id": "Europe",
+          "type": "Region"
+        },
+        {
+          "id": "Auto industry",
+          "type": "Sector"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Nexperia",
+          "target": "Auto industry",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "Nexperia",
+          "target": "Europe",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Reuters",
+          "target": "Nexperia",
+          "type": "REPORTS_ON"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "Disarray at semiconductor manufacturer Nexperia prompts supply chain concerns - Automotive Logistics",
+    "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPeVFwcXlPTnpvMzdZSzFLVUZrLTNla2JFYnl6bTlOR3p3Um5kT0RtcXQ3S1Z4Ykp1aDdXZm40alZaOVViMlBWSjFFZTNsc0hoZnpJUTNTSkY5TzhFS3hqdUQ2b3BMRTg2bUVJRUFmTDFILTM2V0Vyd2FOUThpamlYdVA5TXcwNkxHc2RUMXVYUHQzWU0yc3EyaEw1RVNHR3BaWFJBNW14SmUxRS1FTHhndEdPRDllaktaTVJiTTBPWHhfRDgwOXJCRk5XM0FlZ0FDYW4tN04xTFE?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Nexperia",
+          "type": "Company"
+        },
+        {
+          "id": "Automotive Logistics",
+          "type": "Company"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Nexperia",
+          "target": "Automotive Logistics",
+          "type": "DEPENDS_ON"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "From US-Israel-Iran conflict to electronics shortage: Can supply chain turn chaos into control? - MySinchew",
+    "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5nNmYyTDJlTTRCVW5PSV9Bel9IRnZWa1A0OEYtRHVZdDI0N0hCVnNnUWJpTkk5RVFRMElwcm5iN2UtYkJ4MFF6dGh0MGVNdnc0SjNPaTRhUFUyald4djdUY2NDVF8yNU5JWXBUYlhMLUpUUQ?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "US",
+          "type": "Country | Region"
+        },
+        {
+          "id": "Israel",
+          "type": "Country | Region"
+        },
+        {
+          "id": "Iran",
+          "type": "Country | Region"
+        },
+        {
+          "id": "MySinchew",
+          "type": "Publication"
+        },
+        {
+          "id": "US-Israel-Iran conflict",
+          "type": "Event"
+        },
+        {
+          "id": "electronics shortage",
+          "type": "Event"
+        },
+        {
+          "id": "supply chain",
+          "type": "Concept"
+        },
+        {
+          "id": "Taiwan Semiconductor Manufacturing Company (TSMC)",
+          "type": "Company"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "TSMC",
+          "target": "US",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "TSMC",
+          "target": "US",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "TSMC",
+          "target": "electronics shortage",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "US-Israel-Iran conflict",
+          "target": "supply chain",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "MySinchew",
+          "target": "US-Israel-Iran conflict",
+          "type": "REPORTS_ABOUT"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "The trade war's wave of retail shortages will hit U.S. consumers in stages. Here's when - CNBC",
+    "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQVllwdmVZV241SkNZU0pTMkFCeHVFTTkyeG5mNEVOdEJRNm12V3B4X2pMcXp4UlVwdjNFMGVUMGZ1UUxrWXRkMUF1dm5CZzVPOG9NVElHSEhkWkZvTUlUUW5XQ1dKSTNNX2J0WllHWkVPd0hMTm5xcU1UeDRwTHhGZ3l0SU1oYlV4djFSQXhHdHh3bEVycUHSAZsBQVVfeXFMT0FmZGlPeDlUc1VTLXhtYTlSYm9heXNjWFpLMXg2NEx1UUpON05xX0x6eDBxM01jb3J1Y2k2MkZIc1FZS29DYWRJNEs5d0xhOVQ4czR3Z0F1TFdaTDJFNURnVm1ZM0ZxMlRVUC03Zml1bUdObkRRbUhFa2hlXzdrQVZzaWpvbXJOYlhGYkdQLXN2VlZxUjRCNTBadXc?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "CNBC",
+          "type": "Website/News Source"
+        },
+        {
+          "id": "U.S.",
+          "type": "Region"
+        },
+        {
+          "id": "trade war",
+          "type": "Event"
+        },
+        {
+          "id": "retail shortages",
+          "type": "Event"
+        },
+        {
+          "id": "consumers",
+          "type": "Group"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "trade war",
+          "target": "CNBC",
+          "type": "reported by"
+        },
+        {
+          "source": "U.S.",
+          "target": "consumers",
+          "type": "Affects"
+        },
+        {
+          "source": "trade war",
+          "target": "U.S.",
+          "type": "DISRUPTS"
+        },
+        {
+          "source": "retail shortages",
+          "target": "U.S.",
+          "type": "results in"
+        },
+        {
+          "source": "consumers",
+          "target": "retail shortages",
+          "type": "affected by"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "Impending Crisis Looms Over U.S. Ports - Supply Chain Brain",
+    "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNUctNjVGcnJKa19YeHhZbEoydUpqM0lnaU5BT0xxT0l3eWJLZDRsSFlweUlmSlF3WE1oMXIxdUJoaHExeWNlWFZHdlU1Ql8xbE0tLV9Mcm11Vl8wYWZuWndHOTk2Ym1lWXJXcEtzOS1vU2UtOXFwZUhMVTNMSjRwQUNCYmF5Y1FTNzhMNw?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "U.S. Ports",
+          "type": "Region | Facility"
+        },
+        {
+          "id": "Supply Chain Brain",
+          "type": "Company"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Supply Chain Brain",
+          "target": "U.S. Ports",
+          "type": "LOCATED_NEAR"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "The Nexperia chip crisis: What you need to know - Automotive News",
+    "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNZU9MNDNjSFN2d0EzQTlSWGVsODNUTktHZmxLZlZaRnMxX29rNlRVX1FGZVJsMkh0OEhBbl9RN3I1dW9Yc3d4emMzclpCTHd2ZVhRNXo1M2pvZks2TG5FMVlzQUh0ZmxHWmVsS1RsNjU2UTljLWhvTnR2UWhxXy1fYmszY3NNQQ?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Nexperia",
+          "type": "Company"
+        },
+        {
+          "id": "Automotive News",
+          "type": "Media Organization"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Nexperia",
+          "target": "Automotive News",
+          "type": "REPORTED_BY"
+        },
+        {
+          "source": "Nexperia",
+          "target": "Automotive News",
+          "type": "REFERENCES"
+        }
+      ]
+    }
+  },
+  {
+    "article_title": "Exclusive: Trump team wants Taiwan to train US chip plant workers, sources say - Reuters",
+    "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOeEtzcXJlZlNMUHU3WUppNkJsaVNSeEI1bHAwLVZ1WjVlQWFBX3Y4d3d5bEwyQ2ZNV3lfMFlHbmdSeFk0NzhVemtXTlI4ZTJPeEJFcHdqUFRmOWFHSmc3NV9iNzNxWWtSRFpKRmR4QnVvV2tnTlRVR1p3REpfYXF4eURqYkFfa1l4VmVwd1VJQWhlckV3cktTRXMxS2tKYllMVmpuM3hQeGROblQtMk1KZmotak50MFZ0ak5leWsydXFDLTVkM19kTDJLYmkxZw?oc=5",
+    "extracted_data": {
+      "entities": [
+        {
+          "id": "Taiwan",
+          "type": "Region"
+        },
+        {
+          "id": "Trump team",
+          "type": "Company"
+        },
+        {
+          "id": "US",
+          "type": "Region"
+        },
+        {
+          "id": "Reuters",
+          "type": "Facility"
+        },
+        {
+          "id": "Taiwan chip plant",
+          "type": "Facility"
+        },
+        {
+          "id": "US chip plant",
+          "type": "Facility"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "Trump team",
+          "target": "Taiwan",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Trump team",
+          "target": "US",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Trump team",
+          "target": "Taiwan",
+          "type": "WANTS_TO_TRAIN"
+        },
+        {
+          "source": "Taiwan chip plant workers",
+          "target": "Taiwan",
+          "type": "LOCATED_IN"
+        },
+        {
+          "source": "Taiwan chip plant workers",
+          "target": "US",
+          "type": "TO_BE TRAINED IN"
+        },
+        {
+          "source": "Taiwan chip plant workers",
+          "target": "US chip plant workers",
+          "type": "IS SIMILAR TO"
+        }
+      ]
+    }
+  }
+]

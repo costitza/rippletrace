@@ -1,50 +1,56 @@
 import json
 import time
-import random
-from google import genai
-from google.genai import types, errors
+import os
+from groq import Groq
 from .utils import load_resource
 
-class GeminiExtractor:
-    def __init__(self, model_name="gemini-3-flash-preview"):
-        self.client = genai.Client()
+class GroqExtractor:
+    def __init__(self, model_name="llama-3.1-8b-instant"):
+        self.client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
         self.model_name = model_name
         self.prompt_template = load_resource("extraction_prompt.txt")
 
-    def extract(self, text, max_retries=5):
-        print(f"Sending article to {self.model_name}...")
+    def extract(self, text, max_retries=3):
+        print(f"Sending article to Groq {self.model_name}...")
         prompt = self.prompt_template.replace("{article_content}", text)
         
         retry_count = 0
         while retry_count <= max_retries:
             try:
-                response = self.client.models.generate_content(
+                chat_completion = self.client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "You are a JSON extractor. Only output valid JSON."
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
                     model=self.model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        response_mime_type="application/json"
-                    )
+                    response_format={"type": "json_object"}
                 )
 
-                if not response.text:
+                response_text = chat_completion.choices[0].message.content
+
+                if not response_text:
                     return None
 
                 try:
-                    return json.loads(response.text)
+                    return json.loads(response_text)
                 except json.JSONDecodeError:
-                    print("Error: Invalid JSON from Gemini.")
-                    return None
+                    print("Error: Invalid JSON from Groq.")
+                    retry_count += 1
                     
             except Exception as e:
-                # Handle Rate Limits (429) specifically if possible, or general errors
-                if "429" in str(e) or "quota" in str(e).lower():
-                    wait_time = (2 ** retry_count) + random.random()
-                    print(f"Rate limit hit. Retrying in {wait_time:.2f} seconds... (Attempt {retry_count + 1}/{max_retries})")
+                if "429" in str(e):
+                    wait_time = 2 ** retry_count
+                    print(f"Rate limit hit. Retrying in {wait_time}s...")
                     time.sleep(wait_time)
                     retry_count += 1
                 else:
                     print(f"An unexpected error occurred: {e}")
                     return None
         
-        print("Max retries exceeded. Skipping article.")
         return None
