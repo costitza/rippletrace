@@ -1,7 +1,7 @@
 import json
 from dotenv import load_dotenv
 from src.crawler import fetch_live_news
-from src.extractor import GeminiExtractor
+from src.extractor import GroqExtractor
 from src.database import Neo4jManager
 
 load_dotenv()
@@ -11,7 +11,7 @@ def main():
     if not articles:
         return
 
-    extractor = GeminiExtractor()
+    extractor = GroqExtractor()
     db_manager = Neo4jManager()
     json_backup_data = []
 
