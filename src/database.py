@@ -19,15 +19,33 @@ class Neo4jManager:
             return
 
         with self.driver.session() as session:
+            # 1. Ingest Entities Safely
             for entity in graph_data.get("entities", []):
-                label = entity['type'].replace(" ", "_")
+                # Safely get the type and id, defaulting to empty strings if missing
+                e_type = entity.get('type', '').strip()
+                e_id = entity.get('id', '').strip()
+                
+                # Skip if LLM forgot the type or ID
+                if not e_type or not e_id:
+                    continue
+                    
+                label = e_type.replace(" ", "_")
                 query = self.entity_query.replace("{label}", label)
-                session.run(query, name=entity['id'])
+                session.run(query, name=e_id)
             
+            # 2. Ingest Relationships Safely
             for rel in graph_data.get("relationships", []):
-                rel_type = rel['type'].replace(" ", "_").upper()
-                query = self.relationship_query.replace("{rel_type}", rel_type)
-                session.run(query, source=rel['source'], target=rel['target'])
+                rel_type = rel.get('type', '').strip()
+                source = rel.get('source', '').strip()
+                target = rel.get('target', '').strip()
+                
+                # Skip if LLM forgot the type, source, or target
+                if not rel_type or not source or not target:
+                    continue
+                    
+                rel_type_formatted = rel_type.replace(" ", "_").upper()
+                query = self.relationship_query.replace("{rel_type}", rel_type_formatted)
+                session.run(query, source=source, target=target)
 
     def seed_company(self, company_data):
         """
