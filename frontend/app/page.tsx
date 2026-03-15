@@ -53,10 +53,7 @@ export default function Home() {
               </p>
               <div className="mt-16 flex flex-col items-center justify-center gap-6 sm:flex-row">
                 <Button size="lg" className="h-16 px-10 text-lg font-bold shadow-xl shadow-primary/25 group rounded-2xl">
-                  Start Analyzing <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
-                </Button>
-                <Button variant="ghost" size="lg" className="h-16 px-10 text-lg font-bold rounded-2xl">
-                  View Demo
+                  View Demo  
                 </Button>
               </div>
             </div>
@@ -77,7 +74,7 @@ export default function Home() {
                 Stay ahead of disruptions with our advanced graph-based risk assessment engine.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
               <Card className="border-2 border-border/50 bg-background hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-default p-4 rounded-3xl group">
                 <CardHeader>
                   <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -108,20 +105,6 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border/50 bg-background hover:border-primary/50 hover:shadow-2xl transition-all duration-300 cursor-default p-4 rounded-3xl group">
-                <CardHeader>
-                  <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <Zap className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold">Real-time Alerts</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed font-medium">
-                    Stay ahead of disruptions with automated ingestion of global news events 
-                    and immediate impact analysis.
-                  </p>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </section>
