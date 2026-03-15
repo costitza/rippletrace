@@ -2,23 +2,27 @@ import feedparser
 import urllib.parse
 from .utils import clean_html, load_resource
 
-def fetch_live_news(query=None, limit=200):
-    # 1. Normalize query into a list
+def fetch_live_news(query=None, limit_per_prompt=40):
+    # 1. Use your specific target queries if none are provided
     if query is None:
-        raw_query = load_resource("news_query.txt", "supply chain disruption")
-        query = [q.strip() for q in raw_query.split('\n') if q.strip()]
+        query = [
+            "port strike",
+            "semiconductor shortage",
+            "factory fire",
+            "logistics delay",
+            "shipping crisis"
+        ]
     elif isinstance(query, str):
         query = [query]
         
     all_articles = []
-    seen_links = set()
+    seen_links = set() # Keeps track of duplicates across different prompts
     
     # spoof the User-Agent so Google doesn't block the RSS request
     feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     
     for q in query:
         print(f"Crawling: '{q}'...")
-        # quote_plus is better for standard Google search URLs (uses '+' for spaces)
         encoded_query = urllib.parse.quote_plus(q)
         rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
         
@@ -28,6 +32,9 @@ def fetch_live_news(query=None, limit=200):
             print(f"  -> No results found for '{q}'.")
             continue
             
+        # Counter specifically for the current prompt
+        articles_for_this_prompt = 0
+        
         for entry in feed.entries:
             if entry.link not in seen_links:
                 seen_links.add(entry.link)
@@ -40,12 +47,14 @@ def fetch_live_news(query=None, limit=200):
                     "published": entry.published,
                     "content": full_text
                 })
+                
+                articles_for_this_prompt += 1
             
-            if len(all_articles) >= limit:
+            # Stop adding articles once we hit 40 for THIS specific prompt
+            if articles_for_this_prompt >= limit_per_prompt:
                 break
                 
-        if len(all_articles) >= limit:
-            break
-            
+        print(f"  -> Fetched {articles_for_this_prompt} unique articles for '{q}'.")
+                
     print(f"\nFetched a total of {len(all_articles)} live articles!\n")
-    return all_articles[:limit]
+    return all_articles
