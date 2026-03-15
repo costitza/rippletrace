@@ -1,4 +1,13 @@
-import os
+import os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
+import src.database
+print("PYTHON IS LOADING DATABASE.PY FROM:", src.database.__file__)
+
+from src.database import Neo4jManager
+
 import json
 import yfinance as yf
 from dotenv import load_dotenv
@@ -11,7 +20,7 @@ def load_tickers():
     """
     Loads ticker list from config/tickers.json.
     """
-    filepath = os.path.join(os.path.dirname(__file__), "config", "tickers.json")
+    filepath = os.path.join(os.path.dirname(__file__), "..", "config", "tickers.json")
     if os.path.exists(filepath):
         with open(filepath, 'r') as f:
             data = json.load(f)
