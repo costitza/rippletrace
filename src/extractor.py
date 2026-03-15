@@ -1,56 +1,34 @@
-import json
-import time
 import os
-from groq import Groq
-from .utils import load_resource
+from langchain_groq import ChatGroq
+from langchain_experimental.graph_transformers import LLMGraphTransformer
+from langchain_core.documents import Document
+
+
 
 class GroqExtractor:
     def __init__(self, model_name="llama-3.1-8b-instant"):
-        self.client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-        self.model_name = model_name
-        self.prompt_template = load_resource("extraction_prompt.txt")
+        self.llm = ChatGroq(
+            model=model_name,
+            temperature=0,
+            api_key=os.environ.get("GROQ_API_KEY"), # type: ignore
+            max_retries=3
+        )
 
-    def extract(self, text, max_retries=3):
-        print(f"Sending article to Groq {self.model_name}...")
-        prompt = self.prompt_template.replace("{article_content}", text)
-        
-        retry_count = 0
-        while retry_count <= max_retries:
-            try:
-                chat_completion = self.client.chat.completions.create(
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": "You are a JSON extractor. Only output valid JSON."
-                        },
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ],
-                    model=self.model_name,
-                    response_format={"type": "json_object"}
-                )
+        self.graph_transformer = LLMGraphTransformer(
+            llm=self.llm,
+            allowed_nodes=["Company", "Region", "Event", "Facility", "Product"],
+            allowed_relationships=[ "LOCATED_IN", "SUPPLIES", "OWNS", "IMPACTS", "PRODUCES", "REQUIRES"
+    ]
+        )
 
-                response_text = chat_completion.choices[0].message.content
+    def extract(self, text : str, metadata : dict):
+        print(f"sending article to groq {self.llm.model_name} via langchain..")
 
-                if not response_text:
-                    return None
+        doc = Document(page_content=text, metadata=metadata)
 
-                try:
-                    return json.loads(response_text)
-                except json.JSONDecodeError:
-                    print("Error: Invalid JSON from Groq.")
-                    retry_count += 1
-                    
-            except Exception as e:
-                if "429" in str(e):
-                    wait_time = 2 ** retry_count
-                    print(f"Rate limit hit. Retrying in {wait_time}s...")
-                    time.sleep(wait_time)
-                    retry_count += 1
-                else:
-                    print(f"An unexpected error occurred: {e}")
-                    return None
-        
-        return None
+        try:
+            graph_docs = self.graph_transformer.convert_to_graph_documents([doc])
+            return graph_docs
+        except Exception as e:
+            print(f"Extraction failed: {e}")
+            return None
