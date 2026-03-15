@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Roboto_Slab } from "next/font/google";
 import "./globals.css";
 
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
+const robotoSlab = Roboto_Slab({
+  variable: "--font-roboto-slab",
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${openSans.variable} antialiased`}
+        className={`${robotoSlab.variable} antialiased`}
       >
         {children}
       </body>
