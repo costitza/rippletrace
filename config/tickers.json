@@ -1,10 +1,20 @@
 {
-  "tickers": [
-    "AAPL", "MSFT", "TSM", "ASML", "INTC", "NVDA", "AMD", "AVGO", "QCOM", "MU",
-    "TXN", "AMAT", "LRCX", "ADI", "NXPI", "MCHP", "ON", "KLAC", "STLA", "TSLA",
-    "TM", "F", "GM", "HMC", "UPS", "FDX", "ZIM", "MATX", "WMT", "TGT",
-    "HD", "COST", "RIO", "VALE", "BHP", "FCX", "CAT", "DE", "XOM", "CVX",
-    "BP", "SHEL", "BABA", "JD", "PDD", "GOOGL", "META", "CSX", "UNP", "HON",
-    "GE", "MMM", "ORCL", "CSCO", "IBM"
+  "semiconductors_and_tech": [
+    "AAPL", "TSM", "NVDA", "ASML", "INTC", "AMD", "QCOM", "AVGO", "TXN", "MU", "MSFT", "GOOGL", "AMZN", "CSCO"
+  ],
+  "automotive": [
+    "TSLA", "F", "GM", "TM", "HMC", "RIVN", "STLA", "FSR"
+  ],
+  "retail_and_consumer_goods": [
+    "WMT", "TGT", "COST", "HD", "LOW", "NKE", "SBUX", "PG", "KO", "PEP", "EL"
+  ],
+  "logistics_and_shipping": [
+    "UPS", "FDX", "ZIM", "CHRW", "EXPD", "UNP", "CSX", "NSC", "JBHT"
+  ],
+  "industrials_and_aerospace": [
+    "BA", "LMT", "RTX", "NOC", "GD", "CAT", "DE", "HON", "GE", "MMM"
+  ],
+  "energy_and_materials": [
+    "XOM", "CVX", "COP", "SLB", "HAL", "FCX", "NUE", "ALB", "SQM", "DOW", "DD"
   ]
 }
