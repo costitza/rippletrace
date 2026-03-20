@@ -1,5 +1,8 @@
 import os
 from langchain_neo4j import Neo4jGraph
+import logging
+
+logging.getLogger("neo4j.notifications").setLevel(logging.ERROR)
 
 class Neo4jManager:
     def __init__(self):
