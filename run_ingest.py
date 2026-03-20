@@ -1,15 +1,39 @@
 
 import json
 from dotenv import load_dotenv
-from src.crawler import fetch_live_news
+from yfinance import Ticker
 from src.extractor import GroqExtractor
 from src.database import Neo4jManager
 
+from src.crawlers import fetch_alpaca_news, fetch_sec_risk_factors, fetch_yahoo_news
+
 load_dotenv()
+
+def get_target_tickers():
+    # Load your ~60 tickers from config/tickers.json
+    with open("config/tickers.json", "r") as f:
+        data = json.load(f)
+        all_tickers = []
+        for sector, tickers in data.items():
+            all_tickers.extend(tickers)
+        return all_tickers
 
 
 def main():
-    articles = fetch_live_news()
+    print("Getting tickers...")
+    tickers = get_target_tickers()
+    limit = 2
+
+    print("Fetching Alpaca News...")
+    alpaca_articles = fetch_alpaca_news(tickers, limit_per_ticker=limit)
+
+    print("Fetching Yahoo Finance News...")
+    yahoofin_articles = fetch_yahoo_news(tickers, limit_per_ticker=limit)
+
+    print("Fetching SEC Risk Factors...")
+    secfilings_articles = fetch_sec_risk_factors(tickers)
+
+    articles = alpaca_articles + yahoofin_articles + secfilings_articles
 
     if not articles:
         return
