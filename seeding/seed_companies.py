@@ -18,13 +18,18 @@ load_dotenv()
 
 def load_tickers():
     """
-    Loads ticker list from config/tickers.json.
+    Loads ticker list from config/tickers.json and flattens categories.
     """
     filepath = os.path.join(os.path.dirname(__file__), "..", "config", "tickers.json")
     if os.path.exists(filepath):
         with open(filepath, 'r') as f:
             data = json.load(f)
-            return data.get("tickers", [])
+            # Flatten all categories into a single list of tickers
+            all_tickers = []
+            for category_tickers in data.values():
+                if isinstance(category_tickers, list):
+                    all_tickers.extend(category_tickers)
+            return all_tickers
     return []
 
 def fetch_company_info(ticker_symbol):
