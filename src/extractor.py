@@ -16,9 +16,13 @@ class GroqExtractor:
 
         self.graph_transformer = LLMGraphTransformer(
             llm=self.llm,
-            allowed_nodes=["Company", "Region", "Event", "Facility", "Product"],
-            allowed_relationships=[ "LOCATED_IN", "SUPPLIES", "OWNS", "IMPACTS", "PRODUCES", "REQUIRES"
-    ]
+            allowed_nodes=["Company", "Ticker", "Sector", "Region", "Risk_Event", "Product", "Raw_Material", "Financial_Metric"],
+            allowed_relationships=[ 
+                "LOCATED_IN", "SUPPLIES", "OWNS", "IMPACTS", "PRODUCES", "REQUIRES",
+                "TRADES_AS", "AFFECTS_STOCK", "OPERATES_IN", "IMPACTS_METRIC",
+                # Add these to prevent the LLM from failing when it finds vulnerabilities:
+                "IMPACTED_BY", "DEPENDS_ON", "EXPOSED_TO", "VULNERABLE_TO" 
+            ]
         )
 
     def extract(self, text : str, metadata : dict):
