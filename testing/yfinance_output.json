@@ -1,159 +1,150 @@
 [
   {
-    "title": "Market Madness: Why JPMorgan, McDonald's are slam dunk stock picks",
-    "link": "https://finance.yahoo.com/video/market-madness-why-jpmorgan-mcdonalds-160000375.html",
-    "published": "2026-03-19T16:00:00Z",
-    "content": "Tipping off Yahoo Finance's \"Market Madness\" bracket tournament, Winthrop Capital CIO Adam Coons joins Julie Hyman to make the case for the first round of corporate match-ups, which includes JPMorgan Chase (JPM) vs. TJX (TJX) and McDonald's (MCD) vs. Disney (DIS).",
+    "title": "Market Madness: Palantir, Walmart, & other hot stock picks",
+    "link": "https://finance.yahoo.com/video/market-madness-palantir-walmart-other-211331593.html",
+    "published": "2026-03-20T21:13:31Z",
+    "content": "In the second installment of Yahoo Finance's \"Market Madness\" bracket tournament, Zack's Investment Management chief market strategist Brian Mulberry joins Yahoo Finance Head of News Myles Udland to make the case for this round of corporate match-ups, which includes Robinhood (HOOD) vs. UnitedHealth (UNH) Palantir (PLTR) vs. Procter & Gamble (PG), General Motors (GM) vs. Eli Lilly (LLY), Walmart (WMT) vs. Uber (UBER), and more.",
+    "tickers": [
+      "AAPL",
+      "AMD"
+    ],
+    "source": "Yahoo Finance"
+  },
+  {
+    "title": "Nvidia’s headquarters: An ode to space and 3D rendering",
+    "link": "https://www.thestreet.com/technology/nvidia-headquarters",
+    "published": "2026-03-21T15:39:00Z",
+    "content": "Nvidia is the world’s largest publicly traded company. As such, it boasts state-of-the-art, futuristic office space that highlights its status as a Silicon Valley tech giant. While Apple has a ring-shaped headquarters, known as Apple Park, Nvidia’s headquarters are polygonal in shape, which ...",
     "tickers": [
       "AAPL"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Fidelity’s Active Large Cap Growth ETF Continues to Quietly Outpace Passive Rivals from Vanguard and iShares",
-    "link": "https://247wallst.com/investing/2026/03/20/fidelitys-active-large-cap-growth-etf-continues-to-quietly-outpace-passive-rivals-from-vanguard-and-ishares/",
-    "published": "2026-03-20T13:35:44Z",
-    "content": "Most large cap growth ETFs hand you a market-cap-weighted slice of the same mega-cap names and call it a day. Fidelity Enhanced Large Cap Growth ETF (NYSEARCA:FELG) takes a different approach: it runs a quantitative investment process that balances both risk and return, favoring companies with improving fundamentals and reasonable valuations, with the explicit goal ... Fidelity’s Active Large Cap Growth ETF Continues to Quietly Outpace Passive Rivals from Vanguard and iShares",
-    "tickers": [
-      "AAPL"
-    ],
-    "source": "Yahoo Finance"
-  },
-  {
-    "title": "TSMC Stock (TSM) Wilts as Iranian Attacks Batter Helium Supply and Threaten Chip Production",
-    "link": "https://finance.yahoo.com/markets/stocks/articles/tsmc-stock-tsm-wilts-iranian-123611179.html",
-    "published": "2026-03-20T12:36:11Z",
-    "content": "Major semiconductor stock TSMC (TSM) was lower today on fears that production will soon be hit by a lack of helium because of the Iran war. AI stock Nvidia (NVDA) and EV maker Tesla (TSLA) could also soon be in the firing line because of the rapid hike in helium prices. The recent attacks on energy facilities in the Gulf States by Iran following the outbreak of war with the U.S. and Israel have seen gas and oil prices spike higher. Helium is Pivotal in Semiconductor Production But the gas supply",
+    "title": "Taiwan Semiconductor Manufacturing (TSM) Staring at Chips Production Disruption Amid Iran War",
+    "link": "https://finance.yahoo.com/markets/stocks/articles/taiwan-semiconductor-manufacturing-tsm-staring-104840564.html",
+    "published": "2026-03-21T10:48:40Z",
+    "content": "Taiwan Semiconductor Manufacturing Company Limited (NYSE:TSM) is one of Harvard University’s top AI stock picks. On March 14, Morgan Stanley warned that the closure of the Strait of Hormuz poses significant risks to the global semiconductor supply chain. Consequently, Taiwan Semiconductor Manufacturing Company Limited (NYSE:TSM) could feel the brunt, given that it manufactures 90% of […]",
     "tickers": [
       "TSM"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "This ‘Very Attractive’ Chip Stock Has Taken a Hit. The Case for Buying Now.",
-    "link": "https://www.barrons.com/articles/asml-stock-price-analyst-buy-attractive-chips-fa63a7e6?siteid=yhoof2&yptr=yahoo",
-    "published": "2026-03-20T12:26:00Z",
-    "content": "ASML stock is down 7% in the past month, which makes the chipmaking machinery company a bargain according to TD Cowen.",
+    "title": "Tesla Just Snubbed TSMC — Musk Is Quietly Building A Sovereign Chip Chain",
+    "link": "https://finance.yahoo.com/sectors/technology/articles/tesla-just-snubbed-tsmc-musk-223125927.html",
+    "published": "2026-03-20T22:31:25Z",
+    "content": "Tesla, Inc. isn't just choosing a chip supplier. It's choosing where its future lives. By tapping Samsung's new Texas fab to produce next-gen AI chips, Elon Musk is making a move that looks less about performance — and more about control. Because in AI, supply chains are strategy. This Isn't About Chips — It's About Geography For years, Taiwan Semiconductor Manufacturing Company Ltd. has been the default for cutting-edge semiconductors. Most of the AI world still runs through Taiwan. Tesla just",
     "tickers": [
       "TSM"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Tech stocks today: Supermicro stock dives after US charges employees with smuggling Nvidia chips to China",
-    "link": "https://finance.yahoo.com/news/live/tech-stocks-today-supermicro-stock-dives-after-us-charges-employees-with-smuggling-nvidia-chips-to-china-144220474.html",
-    "published": "2026-03-13T14:42:20Z",
-    "content": "Live coverage of \"Magnificent Seven\" stocks, and the latest technology news.",
+    "title": "Nvidia's changing its strategic approach to AI, going all in on inferencing and agents",
+    "link": "https://finance.yahoo.com/sectors/article/nvidias-changing-its-strategic-approach-to-ai-going-all-in-on-inferencing-and-agents-185557754.html",
+    "published": "2026-03-18T18:55:57Z",
+    "content": "Nvidia is evolving to focus on inferencing and AI agents.",
     "tickers": [
       "NVDA"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Market Madness: Why JPMorgan, McDonald's are slam dunk stock picks",
-    "link": "https://finance.yahoo.com/video/market-madness-why-jpmorgan-mcdonalds-160000375.html",
-    "published": "2026-03-19T16:00:00Z",
-    "content": "Tipping off Yahoo Finance's \"Market Madness\" bracket tournament, Winthrop Capital CIO Adam Coons joins Julie Hyman to make the case for the first round of corporate match-ups, which includes JPMorgan Chase (JPM) vs. TJX (TJX) and McDonald's (MCD) vs. Disney (DIS).",
+    "title": "Treasury yields surge, Super Micro stock plunges on chip accusations",
+    "link": "https://finance.yahoo.com/video/treasury-yields-surge-super-micro-172822863.html",
+    "published": "2026-03-20T17:28:22Z",
+    "content": "Yahoo Finance's John Hyland tracks Thursday's top moving stocks and biggest market stories in this Market Minute. US stocks (^DJI, ^GSPC, ^IXIC) are falling for a third straight session as investors stayed in risk-off mode amid ongoing geopolitical tensions and uncertainty around the global energy outlook. In the bond market (^TYX, ^TNX, ^FVX), short-term yields rose as traders reassessed rate expectations, shifting from anticipated cuts to potential hikes. Super Micro Computer (SMCI) shares plunged after US authorities charged a co-founder with illegally diverting Nvidia-powered (NVDA) servers to China, though the company was not named in the case.",
     "tickers": [
       "NVDA"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "This ‘Very Attractive’ Chip Stock Has Taken a Hit. The Case for Buying Now.",
-    "link": "https://www.barrons.com/articles/asml-stock-price-analyst-buy-attractive-chips-fa63a7e6?siteid=yhoof2&yptr=yahoo",
-    "published": "2026-03-20T12:26:00Z",
-    "content": "ASML stock is down 7% in the past month, which makes the chipmaking machinery company a bargain according to TD Cowen.",
+    "title": "ASML vs. Broadcom: Which AI Stock Is a Better Buy?",
+    "link": "https://www.fool.com/investing/2026/03/20/asml-vs-broadcom-which-ai-stock-is-a-better-buy/",
+    "published": "2026-03-21T04:11:00Z",
+    "content": "Both of these semiconductor giants are playing crucial roles in the artificial intelligence build-out, but one stock offers a much more attractive setup for investors today.",
     "tickers": [
       "ASML"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Non-US Markets Are Ripping, and These 3 ETFs Are The Best Way To Ride The Boom",
-    "link": "https://247wallst.com/investing/2026/03/20/non-us-markets-are-ripping-and-these-3-etfs-are-the-best-way-to-ride-the-boom/",
-    "published": "2026-03-20T12:06:10Z",
-    "content": "The S&P 500 is down 1.6% so far in 2026. Meanwhile, emerging markets are up sharply, developed international markets are outperforming, and a decade-long valuation gap between US and non-US equities is finally closing. For US investors who have been almost entirely domestic, this shift is creating a real portfolio decision: how do you get ... Non-US Markets Are Ripping, and These 3 ETFs Are The Best Way To Ride The Boom",
+    "title": "Assessing ASML Holding (NasdaqGS:ASML) Valuation After Recent Share Price Pullback",
+    "link": "https://finance.yahoo.com/markets/stocks/articles/assessing-asml-holding-nasdaqgs-asml-220811130.html",
+    "published": "2026-03-20T22:08:11Z",
+    "content": "How ASML Holding (ASML) stock has been trading recently ASML Holding (NasdaqGS:ASML) has seen mixed share performance recently, with a 3.6% decline over the past day and a 2.1% dip over the past week, alongside a 10.3% fall over the past month. Those shorter term moves sit against stronger longer term total returns, including 24.7% over the past 3 months, 13.2% year to date and 85.3% over the past year, as well as triple digit gains across 3 and 5 years. See our latest analysis for ASML...",
     "tickers": [
       "ASML"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Could Buying NuScale Power Stock Right Now Set You Up for Life? (Hint: Yes)",
-    "link": "https://www.fool.com/investing/2026/03/20/could-buying-nuscale-power-stock-right-now-set-you/",
-    "published": "2026-03-20T13:50:00Z",
-    "content": "NuScale Power could be a major beneficiary of AI spending.",
+    "title": "2 AI Stocks That Didn't Get the Memo That the Bull Market Hit a Speed Bump",
+    "link": "https://www.fool.com/investing/2026/03/21/ai-stocks-didnt-get-memo-bull-market-pltr-sndk/",
+    "published": "2026-03-21T16:22:00Z",
+    "content": "These two stocks continue to climb higher.",
     "tickers": [
       "INTC"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Skeptics Fear Autonomous Vehicles Will Destroy Uber. Here's Why They May Be Wrong.",
-    "link": "https://www.fool.com/investing/2026/03/20/skeptics-fear-autonomous-vehicles-will-destroy-ube/",
-    "published": "2026-03-20T13:35:00Z",
-    "content": "Autonomous vehicles may eventually change the supply of rides, but they may not eliminate the need for ride-hailing platforms.",
+    "title": "3 Top EV Stocks With AI Upside to Buy Right Now",
+    "link": "https://www.fool.com/investing/2026/03/21/3-top-ev-stocks-with-ai-upside-to-buy-right-now/",
+    "published": "2026-03-21T16:05:00Z",
+    "content": "Some electric vehicle stocks are evolving to become artificial intelligence stocks.",
     "tickers": [
       "INTC"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Ecolab to buy CoolIT for $4.75 billion to tap into AI data center boom",
-    "link": "https://finance.yahoo.com/sectors/technology/articles/ecolab-acquire-coolit-systems-4-121022526.html",
-    "published": "2026-03-20T12:10:22Z",
-    "content": "Ecolab said on Friday it would acquire CoolIT Systems from KKR for about $4.75 billion ‌in cash, as the water solutions firm seeks ‌to capitalize on surging demand for liquid cooling in artificial intelligence-driven data ​centers.  Owned by funds managed by KKR, CoolIT ⁠designs and manufactures liquid cooling systems used by hyperscale and colocation operators.  Ecolab expects CoolIT’s hardware ​and thermal engineering to ‌complement its own strengths in water, chemistry and digital monitoring, helping it turn into a more complete provider of cooling and fluid management.",
+    "title": "Amtech, Nova, Amkor, Semtech, and Micron Shares Are Falling, What You Need To Know",
+    "link": "https://finance.yahoo.com/markets/stocks/articles/amtech-nova-amkor-semtech-micron-205725822.html",
+    "published": "2026-03-20T20:57:25Z",
+    "content": "A number of stocks fell in the afternoon session after federal prosecutors charged a Super Micro Computer co-founder with conspiring to smuggle billions of dollars in AI chips to China.",
     "tickers": [
       "AMD"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Why Celestica (TSX:CLS) Is Up 8.2% After Teaming With AMD On Helios AI Networking Switches",
-    "link": "https://finance.yahoo.com/markets/stocks/articles/why-celestica-tsx-cls-8-090656442.html",
-    "published": "2026-03-20T09:06:56Z",
-    "content": "In March 2026, AMD announced a collaboration with Celestica to develop and manufacture scale-up networking switches for the Helios rack-scale AI platform, using Open Compute Project, Open-Rack-Wide designs and Ultra Accelerator Link over Ethernet to connect next-generation AMD Instinct MI450 Series GPUs across large AI clusters. This partnership highlights how Celestica is moving further up the AI infrastructure stack by combining its design and manufacturing strengths with AMD’s compute...",
-    "tickers": [
-      "AMD"
-    ],
-    "source": "Yahoo Finance"
-  },
-  {
-    "title": "Qualcomm Could Be the Biggest AI Bargain of the Year",
-    "link": "https://247wallst.com/investing/2026/03/20/qualcomm-could-be-the-biggest-ai-bargain-of-the-year/",
-    "published": "2026-03-20T13:49:32Z",
-    "content": "What an awful past year it’s been for those patient shareholders in Qualcomm (NASDAQ:QCOM). The semiconductor stocks have been on a massive multi-year surge, yet here Qualcomm is not only not participating in the big gains enjoyed by just about every other semi firm, but sinking to multi-year depths. Of course, Qualcomm could catch a ... Qualcomm Could Be the Biggest AI Bargain of the Year",
+    "title": "QUALCOMM ESOP Shelf And AGM Votes Put Valuation Gap In Focus",
+    "link": "https://finance.yahoo.com/markets/stocks/articles/qualcomm-esop-shelf-agm-votes-110638030.html",
+    "published": "2026-03-21T11:06:38Z",
+    "content": "QUALCOMM filed a $3.1b shelf registration for common shares tied to its employee stock ownership plan (ESOP). The filing came shortly after the company’s annual shareholder meeting, where proposals on special meeting rights and China exposure reporting were voted down. The move highlights how NasdaqGS:QCOM is using equity for employee incentives while maintaining its current stance on shareholder rights and disclosure requests. For investors watching NasdaqGS:QCOM at a share price of...",
     "tickers": [
       "QCOM"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "As Qualcomm Stock Raises Its Dividend, Is QCOM Stock a Buy?",
-    "link": "https://www.barchart.com/story/news/854063/as-qualcomm-stock-raises-its-dividend-is-qcom-stock-a-buy",
-    "published": "2026-03-19T23:30:02Z",
-    "content": "Qualcomm’s 3.4% dividend hike and new $20 billion buyback, layered on top of a 3.6% yield, a 23-year dividend growth streak, and a below-sector 15× forward P/E, make QCOM look like a reasonable value-and-income play for patient tech investors willing to sit through a 2026 earnings dip while its robotics and data center bets mature.",
+    "title": "Could Qualcomm Stock Turn $1,000 Into $10,000 This Decade?",
+    "link": "https://www.fool.com/investing/2026/03/21/could-qualcomm-stock-turn-1000-into-10000/",
+    "published": "2026-03-21T09:20:00Z",
+    "content": "The mobile chipmaker faces formidable near-term challenges.",
     "tickers": [
       "QCOM"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "Fidelity’s Active Large Cap Growth ETF Continues to Quietly Outpace Passive Rivals from Vanguard and iShares",
-    "link": "https://247wallst.com/investing/2026/03/20/fidelitys-active-large-cap-growth-etf-continues-to-quietly-outpace-passive-rivals-from-vanguard-and-ishares/",
-    "published": "2026-03-20T13:35:44Z",
-    "content": "Most large cap growth ETFs hand you a market-cap-weighted slice of the same mega-cap names and call it a day. Fidelity Enhanced Large Cap Growth ETF (NYSEARCA:FELG) takes a different approach: it runs a quantitative investment process that balances both risk and return, favoring companies with improving fundamentals and reasonable valuations, with the explicit goal ... Fidelity’s Active Large Cap Growth ETF Continues to Quietly Outpace Passive Rivals from Vanguard and iShares",
+    "title": "This 1 ETF Keeps Outrallying the SPY, While Also Losing Less During Downturns",
+    "link": "https://247wallst.com/investing/2026/03/21/this-1-etf-keeps-outrallying-the-spy-while-also-losing-less-during-downturns/",
+    "published": "2026-03-21T12:21:49Z",
+    "content": "Most investors who want broad U.S. equity exposure reach for SPDR S&P 500 ETF Trust (NYSEARCA:SPY). It is the default. But a lesser-known fund built entirely from stocks already inside the S&P 500 has quietly delivered stronger returns over virtually every meaningful time horizon, while also holding up better when markets fall. That fund is ... This 1 ETF Keeps Outrallying the SPY, While Also Losing Less During Downturns",
     "tickers": [
       "AVGO"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "TSMC Stock (TSM) Wilts as Iranian Attacks Batter Helium Supply and Threaten Chip Production",
-    "link": "https://finance.yahoo.com/markets/stocks/articles/tsmc-stock-tsm-wilts-iranian-123611179.html",
-    "published": "2026-03-20T12:36:11Z",
-    "content": "Major semiconductor stock TSMC (TSM) was lower today on fears that production will soon be hit by a lack of helium because of the Iran war. AI stock Nvidia (NVDA) and EV maker Tesla (TSLA) could also soon be in the firing line because of the rapid hike in helium prices. The recent attacks on energy facilities in the Gulf States by Iran following the outbreak of war with the U.S. and Israel have seen gas and oil prices spike higher. Helium is Pivotal in Semiconductor Production But the gas supply",
+    "title": "The 1 Asset Warren Buffett Says Every Investor Should Own",
+    "link": "https://www.fool.com/investing/2026/03/21/the-1-asset-warren-buffett-says-every-investor-sho/",
+    "published": "2026-03-21T09:44:00Z",
+    "content": "If you're not following the S&P 500, you may be losing out.",
     "tickers": [
       "AVGO"
     ],
@@ -180,20 +171,20 @@
     "source": "Yahoo Finance"
   },
   {
-    "title": "Why Micron stock is falling despite Q2 earnings beat",
-    "link": "https://finance.yahoo.com/video/why-micron-stock-falling-despite-161455196.html",
-    "published": "2026-03-19T16:14:55Z",
-    "content": "Micron (MU) stock is moving lower even after the company beat second quarter earnings expectations. Yahoo Finance Head of News Myles Udland chats with Morning Brief host Julie Hyman to discuss the market's reaction and the key drivers behind the stock moves.",
+    "title": "2 Artificial Intelligence (AI) Stocks That Are Quietly Outperforming Micron Technology in 2026 With 76% and 82% Gains",
+    "link": "https://www.fool.com/investing/2026/03/21/2-artificial-intelligence-ai-stocks-that-are-quiet/",
+    "published": "2026-03-21T09:32:00Z",
+    "content": "These AI stocks are benefiting from secular growth drivers that could send them higher in the long run.",
     "tickers": [
       "MU"
     ],
     "source": "Yahoo Finance"
   },
   {
-    "title": "OpenAI’s 2026 Scorecard: A String of Lawsuits, Losses, and Broken Promises",
-    "link": "https://finance.yahoo.com/markets/stocks/articles/openai-2026-scorecard-string-lawsuits-135104297.html",
-    "published": "2026-03-20T13:51:04Z",
-    "content": "OpenAI entered 2026 confronting a pattern of broken commitments that had turned some of its closest allies into adversaries and cost the company $11.5 billion in 2025 last quarter. Amid the challenges it faces in 2026, co-founder Elon Musk is heading to trial on fraud charges, and Microsoft (MSFT), OpenAI’s largest shareholder, is reportedly considering legal action over an alleged breach of contract. Additionally, six months of consumer backlash over model retirements has exposed the artificial",
+    "title": "Investing.com’s stocks of the week",
+    "link": "https://finance.yahoo.com/markets/stocks/articles/investing-com-stocks-week-093002519.html",
+    "published": "2026-03-21T09:30:02Z",
+    "content": "Investing.com – The Middle East conflict continued this week, with escalations driving ongoing volatility.",
     "tickers": [
       "MU"
     ],
