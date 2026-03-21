@@ -52,6 +52,8 @@ def fetch_alpaca_news(tickers=None, limit_per_ticker=5):
                 full_text = item.get('summary', '')
 
             if full_text:
+
+                print(f"    -> Fetched \"{item.get('headline')}\" article")
                 all_articles.append({
                     "title": item.get('headline'),
                     "link": article_url,

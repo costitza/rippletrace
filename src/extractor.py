@@ -16,14 +16,30 @@ class GroqExtractor:
 
         self.graph_transformer = LLMGraphTransformer(
             llm=self.llm,
-            allowed_nodes=["Company", "Ticker", "Sector", "Region", "Risk_Event", "Product", "Raw_Material", "Financial_Metric"],
+            # Expanded list of allowed entities
+            allowed_nodes=[
+                "Company", "Ticker", "Sector", "Region", "Risk_Event", 
+                "Product", "Raw_Material", "Financial_Metric", 
+                "Person", "Organization", "Government_Body", "Market_Index"
+            ],
+            # Expanded list of allowed connections
             allowed_relationships=[ 
-                "LOCATED_IN", "SUPPLIES", "OWNS", "IMPACTS", "PRODUCES", "REQUIRES",
+                # Supply Chain & Core Operations
+                "LOCATED_IN", "SUPPLIES", "OWNS", "PRODUCES", "REQUIRES", 
+                "DEPENDS_ON", "MANUFACTURED", "MANUFACTURED_BY", "DEVELOPED", "DEVELOPED_BY",
+                
+                # Risk & Disruptions
+                "IMPACTS", "IMPACTED_BY", "EXPOSED_TO", "VULNERABLE_TO", 
+                
+                # Financial & Corporate Actions
                 "TRADES_AS", "AFFECTS_STOCK", "OPERATES_IN", "IMPACTS_METRIC",
-                # Add these to prevent the LLM from failing when it finds vulnerabilities:
-                "IMPACTED_BY", "DEPENDS_ON", "EXPOSED_TO", "VULNERABLE_TO" 
+                "LISTED_ON", "COMPETES_WITH", "PARTNERED_WITH", "ACQUIRED_BY",
+                
+                # People, Analysts, and Media
+                "EMPLOYED_BY", "LEADS", "ANALYZED", "REPORTS", "INVESTS_IN"
             ]
         )
+        
 
     def extract(self, text : str, metadata : dict):
         print(f"sending article to groq {self.llm.model_name} via langchain..")

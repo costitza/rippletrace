@@ -30,10 +30,10 @@ def main():
     print("Fetching Yahoo Finance News...")
     yahoofin_articles = fetch_yahoo_news(tickers, limit_per_ticker=limit)
 
-    print("Fetching SEC Risk Factors...")
-    secfilings_articles = fetch_sec_risk_factors(tickers)
+    # print("Fetching SEC Risk Factors...")
+    # secfilings_articles = fetch_sec_risk_factors(tickers)
 
-    articles = alpaca_articles + yahoofin_articles + secfilings_articles
+    articles = alpaca_articles + yahoofin_articles #+ secfilings_articles
 
     if not articles:
         return
