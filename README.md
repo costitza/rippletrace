@@ -1,49 +1,40 @@
-# Project Blueprint: Stock Market Risk Review (Ripple Effect Predictor)
+# RippleTrace: Geopolitical and Supply Chain Risk Analysis
 
-## Architecture Overview
-A full-stack AI application designed to predict how localized geopolitical or environmental events create chain reactions across global supply chains and stock markets.
+RippleTrace is a professional-grade full-stack application designed to model and predict the ripple effects of localized geopolitical, environmental, or economic events on global supply chains and financial markets. By utilizing Graph Retrieval-Augmented Generation (GraphRAG), the system identifies non-obvious dependencies and secondary risks that traditional flat-data analysis often misses.
 
----
+## Core Concepts
 
-## Tech Stack
+### Graph Retrieval-Augmented Generation (GraphRAG)
+Unlike standard RAG, which relies on vector similarity of text chunks, RippleTrace utilizes a Knowledge Graph (Neo4j) to represent the interconnected nature of the global economy. This allows the system to perform multi-hop reasoning, such as identifying how a labor strike in a specific port affects a semiconductor manufacturer, which in turn impacts a consumer electronics company. The graph structure enables the model to "traverse" relationships that are often buried in thousands of pages of text, providing a structural context that vector databases cannot easily replicate.
 
-### 1. Frontend: User Interface
-* **Framework:** Next.js (React)
-* **Visualization:** react-force-graph (for rendering the interactive 2D/3D knowledge web)
-* **Communication:** RESTful API calls to the FastAPI backend
+### Dual-Model AI Strategy
+The system employs a tiered model architecture using the Google AI Studio API to optimize for both speed and reasoning depth:
 
-### 2. Backend: Logic and Orchestration
-* **Framework:** FastAPI (Python)
-* **Orchestration:** LangChain or LlamaIndex to manage the GraphRAG logic and Neo4j drivers
+1. **The Data Worker (gemini-3-flash-preview):** This model is optimized for high-throughput extraction. Its primary role is to act as a "structural parser," scanning massive volumes of unstructured news and regulatory data to identify specific nodes and edges. It is specifically prompted to ignore noise and focus on entities that fit our defined economic schema.
+2. **The Risk Advisor (gemini-3.1-pro):** This is the high-intelligence "reasoning" layer. It does not see the raw news data; instead, it is provided with the specific sub-graph relevant to a user's query. Its job is to synthesize these paths—often 3 or 4 hops deep—into a coherent narrative that explains how a remote event translates into a financial risk for a specific portfolio.
 
-### 3. Database: Knowledge Storage
-* **Database:** Neo4j (Graph Database)
-* **Query Language:** Cypher
-* **Function:** Stores relationships between companies, suppliers, and regions to allow for rapid multi-hop pathfinding
+## Technical Stack
 
----
+### Frontend
+- **Framework:** Next.js (React) with TypeScript.
+- **Visualization:** react-force-graph for rendering interactive 2D and 3D knowledge webs, allowing users to navigate complex relationship clusters.
+- **Styling:** Vanilla CSS for precise architectural control and performance.
 
-## AI and Model Strategy (Dual-Model Cloud Approach)
+### Backend
+- **Framework:** FastAPI (Python) for high-performance asynchronous API endpoints.
+- **Orchestration:** LangChain and LlamaIndex for managing the flow between the LLMs and the data sources.
+- **Data Ingestion:** Custom crawlers for Yahoo Finance, SEC EDGAR, and Google News.
 
-The system utilizes the Google AI Studio (Gemini API) to separate background data processing from user-facing reasoning:
+### Database
+- **Graph Store:** Neo4j (AuraDB).
+- **Query Language:** Cypher.
+- **Schema:** Strict adherence to a predefined schema including Company, Region, Event, and Facility nodes to ensure data integrity and query efficiency.
 
-| Task | Model | Purpose |
-| :--- | :--- | :--- |
-| **The Data Worker** | Gemini 3 Flash | Background automation. Scans news and SEC filings to extract structured JSON (Entities and Relationships) for the graph. |
-| **The Risk Advisor** | Gemini 3.1 Pro | User-facing intelligence. Queries the graph to explain complex risks and generate final advisory reports. |
+## System Architecture
 
----
+1. **Ingestion Phase:** The system periodically crawls financial news and regulatory filings.
+2. **Extraction Phase:** The Data Worker identifies entities and their relationships based on a specialized extraction prompt.
+3. **Graph Construction:** Relationships are merged into the Neo4j database using Cypher's `MERGE` operations to prevent duplication.
+4. **Query & Analysis Phase:** When a risk query is initiated, the system traverses the graph to find all paths connecting the event to market entities.
+5. **Advisory Generation:** The Risk Advisor interprets these paths to explain the "why" and "how" of the predicted market impact.
 
-## Core Logic: GraphRAG
-Instead of retraining the model, this project uses Graph Retrieval-Augmented Generation (GraphRAG):
-1.  **Ingest:** New news events are processed by Gemini 3 Flash.
-2.  **Update:** The Neo4j graph is updated with new nodes and edges (e.g., a "Shutdown" event connected to a "Factory" node).
-3.  **Query:** When a user asks a question, the backend searches Neo4j for relevant paths and dependencies.
-4.  **Answer:** Gemini 3.1 Pro receives the specific graph paths and generates a logical risk assessment.
-
----
-
-## Impact and Utility
-* **Automated Alerts:** Triggers notifications when a news event impacts a node in a specific portfolio.
-* **What-If Simulations:** Users can simulate events (e.g., "Suez Canal Blockage") to identify secondary or tertiary victims in the market.
-* **Dependency Discovery:** Reveals non-obvious links between companies that are hidden in traditional flat financial data.
