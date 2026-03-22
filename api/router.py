@@ -16,6 +16,33 @@ def get_companies(session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/articles")
+def get_articles(session = Depends(get_db)):
+    """Fetches 10 recent articles and their associated company/ticker names."""
+    query = """
+    MATCH (a:Article)
+    OPTIONAL MATCH (a)-[:REPORTS_ON]->(e)
+    WHERE e:Company OR e:Ticker
+    WITH a, collect(DISTINCT e.id) AS tickers
+    RETURN a.title AS title, a.url AS url, a.published AS published, tickers
+    ORDER BY a.published DESC
+    LIMIT 10
+    """
+    try:
+        result = session.run(query)
+        articles = [
+            {
+                "title": record["title"],
+                "url": record["url"],
+                "published": record["published"],
+                "tickers": record["tickers"]
+            }
+            for record in result
+        ]
+        return {"articles": articles}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.post("/risk-assessment")
 def assess_risk(query: RiskQuery, session = Depends(get_db)):
     """
