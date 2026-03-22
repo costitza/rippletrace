@@ -2,13 +2,29 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { LayoutDashboard, Network, Settings, User, Radio, Hub, Shield } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { LayoutDashboard, Network, Settings, Radio } from 'lucide-react';
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  const navItems = [
+    {
+      label: 'Main Dashboard',
+      href: '/dashboard',
+      icon: LayoutDashboard,
+    },
+    {
+      label: 'GraphRAG Visualizer',
+      href: '/visualizer',
+      icon: Network,
+    },
+  ];
+
   return (
     <div className="flex h-screen bg-[#f9faf6] text-[#1a1c1a] font-mono">
       {/* Sidebar */}
@@ -21,14 +37,25 @@ export default function DashboardLayout({
         </div>
         
         <nav className="flex-1 p-4 space-y-2">
-          <Link href="/dashboard" className="flex items-center gap-3 p-3 rounded-sm bg-[#012d1d] text-white text-sm font-bold">
-            <LayoutDashboard className="w-4 h-4" />
-            Main Dashboard
-          </Link>
-          <Link href="/visualizer" className="flex items-center gap-3 p-3 rounded-sm text-[#414844] hover:bg-[#e2e3e0] transition-colors text-sm font-bold">
-            <Network className="w-4 h-4" />
-            GraphRAG Visualizer
-          </Link>
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            
+            return (
+              <Link 
+                key={item.href}
+                href={item.href} 
+                className={`flex items-center gap-3 p-3 rounded-sm text-sm font-bold transition-colors ${
+                  isActive 
+                    ? 'bg-[#012d1d] text-white' 
+                    : 'text-[#414844] hover:bg-[#e2e3e0]'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
         
         <div className="p-6 border-t border-[#c1c8c2]">

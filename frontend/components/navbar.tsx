@@ -13,7 +13,7 @@ export function Navbar() {
         
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/dashboard" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">Main Dashboard</Link>
-          <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">GraphRAG Visualizer</Link>
+          <Link href="/visualizer" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">GraphRAG Visualizer</Link>
           <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">SEC Risk Factors</Link>
         </nav>        
         <div className="flex-1 flex justify-end">
@@ -25,11 +25,11 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#c1c8c2] px-6 py-3 flex justify-around items-center z-50 font-mono">
-        <Link href="#" className="flex flex-col items-center gap-1 text-[#012d1d]">
+        <Link href="/dashboard" className="flex flex-col items-center gap-1 text-[#012d1d]">
           <LayoutDashboard className="w-6 h-6" />
           <span className="text-[10px] font-bold uppercase">Main</span>
         </Link>
-        <Link href="#" className="flex flex-col items-center gap-1 text-[#414844]">
+        <Link href="/visualizer" className="flex flex-col items-center gap-1 text-[#414844]">
           <Network className="w-6 h-6" />
           <span className="text-[10px] font-bold uppercase">Graph</span>
         </Link>
