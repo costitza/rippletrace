@@ -18,7 +18,7 @@ def get_companies(session = Depends(get_db)):
 
 @router.get("/articles")
 def get_articles(session = Depends(get_db)):
-    """Fetches 10 recent articles and their associated company/ticker names."""
+    """Fetches all articles and their associated company/ticker names."""
     query = """
     MATCH (a:Article)
     OPTIONAL MATCH (a)-[:REPORTS_ON]->(e)
@@ -26,7 +26,6 @@ def get_articles(session = Depends(get_db)):
     WITH a, collect(DISTINCT e.id) AS tickers
     RETURN a.title AS title, a.url AS url, a.published AS published, tickers
     ORDER BY a.published DESC
-    LIMIT 10
     """
     try:
         result = session.run(query)

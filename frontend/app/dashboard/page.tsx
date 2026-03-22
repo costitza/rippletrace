@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Leaf, ArrowRight, Zap, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
 interface Article {
   title: string;
@@ -82,9 +83,9 @@ export default function DashboardPage() {
               <Zap className="w-4 h-4 text-[#3e6a00]" />
               Breaking Supply Chain Shocks
             </h3>
-            <button className="text-[10px] font-bold uppercase tracking-widest text-[#414844] hover:text-[#012d1d] flex items-center gap-2 transition-colors">
+            <Link href="/dashboard/intelligence" className="text-[10px] font-bold uppercase tracking-widest text-[#414844] hover:text-[#012d1d] flex items-center gap-2 transition-colors">
               View All Intelligence <ArrowRight className="w-3 h-3" />
-            </button>
+            </Link>
           </div>
 
           <div className="space-y-4">
@@ -102,7 +103,7 @@ export default function DashboardPage() {
                 <p className="text-xs font-bold uppercase tracking-widest">No active disruptions detected in the current cycle.</p>
               </div>
             ) : (
-              articles.map((article, index) => (
+              articles.slice(0, 5).map((article, index) => (
                 <a 
                   key={index} 
                   href={article.url} 

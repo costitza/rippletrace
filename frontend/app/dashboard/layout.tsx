@@ -38,7 +38,9 @@ export default function DashboardLayout({
         
         <nav className="flex-1 p-4 space-y-2">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.href === '/dashboard' 
+              ? pathname === '/dashboard' || pathname.startsWith('/dashboard/')
+              : pathname === item.href;
             const Icon = item.icon;
             
             return (
