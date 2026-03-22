@@ -1,26 +1,35 @@
 "use client";
 
-import React from 'react';
-import { Leaf, ArrowUpRight, ArrowRight, Zap, Info } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Leaf, ArrowRight, Zap, Loader2 } from 'lucide-react';
+
+interface Article {
+  title: string;
+  url: string;
+  published: string;
+  tickers: string[];
+}
 
 export default function DashboardPage() {
-  const newsShocks = [
-    {
-      date: "July 24, 2024",
-      title: "PORT CONGESTION IN NINGBO-ZHOUSHAN AFFECTING SEMICONDUCTOR FLOW",
-      tickers: ["TSM", "INTC"]
-    },
-    {
-      date: "July 23, 2024",
-      title: "ALTERNATIVE LITHIUM SOURCE DISCOVERED IN SALTON SEA NODES",
-      tickers: ["TSLA", "ALB"]
-    },
-    {
-      date: "July 22, 2024",
-      title: "EU CARBON TAX ADJUSTMENT PHASE ENTERING SECONDARY STAGE",
-      tickers: ["VWAGY"]
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const response = await fetch("http://localhost:8000/api/articles");
+        if (!response.ok) throw new Error("Failed to fetch articles");
+        const data = await response.json();
+        setArticles(data.articles || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+    fetchArticles();
+  }, []);
 
   return (
     <div className="space-y-12">
@@ -31,7 +40,7 @@ export default function DashboardPage() {
         </div>
         <div className="text-right">
           <p className="text-[10px] text-[#414844] font-bold uppercase tracking-widest mb-1">Last Sync</p>
-          <p className="text-xs font-bold text-[#012d1d]">14:32:01 UTC</p>
+          <p className="text-xs font-bold text-[#012d1d]">{new Date().toLocaleTimeString()} UTC</p>
         </div>
       </div>
 
@@ -79,19 +88,50 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-4">
-            {newsShocks.map((shock, index) => (
-              <div key={index} className="p-6 bg-white border border-[#c1c8c2] rounded-sm hover:border-[#3e6a00] transition-colors cursor-pointer group">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#414844] mb-2">{shock.date}</p>
-                <h4 className="text-lg font-bold text-[#012d1d] group-hover:text-[#3e6a00] transition-colors mb-4">{shock.title}</h4>
-                <div className="flex gap-2">
-                  {shock.tickers.map((ticker) => (
-                    <span key={ticker} className="px-2 py-1 bg-[#f3f4f1] border border-[#c1c8c2] text-[10px] font-bold text-[#414844] uppercase tracking-widest">
-                      {ticker}
-                    </span>
-                  ))}
-                </div>
+            {loading ? (
+              <div className="flex items-center justify-center py-20 text-[#717973]">
+                <Loader2 className="w-8 h-8 animate-spin mr-3" />
+                <span className="text-xs font-bold uppercase tracking-widest">Parsing Knowledge Graph...</span>
               </div>
-            ))}
+            ) : error ? (
+              <div className="p-6 border border-red-200 bg-red-50 text-red-600 rounded-sm text-xs font-bold uppercase tracking-widest">
+                Error: {error}
+              </div>
+            ) : articles.length === 0 ? (
+              <div className="p-10 text-center border border-dashed border-[#c1c8c2] text-[#717973]">
+                <p className="text-xs font-bold uppercase tracking-widest">No active disruptions detected in the current cycle.</p>
+              </div>
+            ) : (
+              articles.map((article, index) => (
+                <a 
+                  key={index} 
+                  href={article.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block p-6 bg-white border border-[#c1c8c2] rounded-sm hover:border-[#3e6a00] transition-colors cursor-pointer group"
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#414844] mb-2">
+                    {article.published ? new Date(article.published).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Recent'}
+                  </p>
+                  <h4 className="text-lg font-bold text-[#012d1d] group-hover:text-[#3e6a00] transition-colors mb-4 line-clamp-2">
+                    {article.title}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {article.tickers && article.tickers.length > 0 ? (
+                      article.tickers.map((ticker) => (
+                        <span key={ticker} className="px-2 py-1 bg-[#f3f4f1] border border-[#c1c8c2] text-[10px] font-bold text-[#414844] uppercase tracking-widest">
+                          {ticker}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="px-2 py-1 bg-[#f3f4f1] border border-[#c1c8c2] text-[10px] font-bold text-[#717973] uppercase tracking-widest italic opacity-50">
+                        Analyzing Entities...
+                      </span>
+                    )}
+                  </div>
+                </a>
+              ))
+            )}
           </div>
         </div>
       </div>
