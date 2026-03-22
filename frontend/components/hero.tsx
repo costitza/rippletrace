@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Leaf } from 'lucide-react';
+import Link from 'next/link';
 
 export function Hero() {
   return (
@@ -14,7 +15,9 @@ export function Hero() {
             rippletrace maps the invisible veins of global trade. utilizing advanced graphrag architectures, we navigate the complex silences of supply chains to predict failure before it propagates.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="bg-[#012d1d] text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-opacity">Identify Risk</button>
+            <Link href="/dashboard" className="bg-[#012d1d] text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-opacity">
+              Identify Risk
+            </Link>
             <button className="border border-[#717973] text-[#1a1c1a] px-8 py-4 rounded-full font-bold hover:bg-[#eeeeeb] transition-colors">Explore Graph</button>
           </div>
         </div>

@@ -12,11 +12,10 @@ export function Navbar() {
         </div>
         
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">Main Dashboard</Link>
+          <Link href="/dashboard" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">Main Dashboard</Link>
           <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">GraphRAG Visualizer</Link>
           <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">SEC Risk Factors</Link>
-        </nav>
-        
+        </nav>        
         <div className="flex-1 flex justify-end">
           <button className="p-2 hover:bg-[#eeeeeb] rounded-full transition-colors text-[#414844]">
             <CircleUser className="w-6 h-6" />
