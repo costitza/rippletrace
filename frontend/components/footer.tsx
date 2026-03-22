@@ -1,22 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { Zap } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-surface-container py-24">
-      <div className="container mx-auto px-6 lg:px-12 flex flex-col items-center justify-between gap-12 md:flex-row">
-        <div className="flex items-center gap-4">
-          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-            <Zap className="h-6 w-6 text-primary fill-primary" />
-          </div>
-          <span className="text-2xl font-serif font-bold tracking-tight text-primary">RippleTrace</span>
+    <footer className="bg-[#e2e3e0] border-t border-[#c1c8c2] px-6 py-16 font-mono">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 text-[#1a1c1a]">
+        <div className="col-span-1 md:col-span-1">
+          <h2 className="text-xl font-bold mb-4">RippleTrace</h2>
+          <p className="text-xs text-[#414844] leading-relaxed">Editorial Organicism © 2024</p>
         </div>
-        <p className="text-lg text-muted-foreground font-medium italic">&copy; 2026 RippleTrace Intelligence Suite. All rights reserved.</p>
-        <div className="flex items-center gap-10">
-          <Link href="#" className="text-lg text-muted-foreground hover:text-primary font-bold transition-colors">Privacy Policy</Link>
-          <Link href="#" className="text-lg text-muted-foreground hover:text-primary font-bold transition-colors">Terms of Service</Link>
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Platform</h4>
+          <ul className="space-y-4 text-sm text-[#414844]">
+            <li><Link href="#" className="hover:text-[#012d1d]">Main Dashboard</Link></li>
+            <li><Link href="#" className="hover:text-[#012d1d]">GraphRAG Visualizer</Link></li>
+            <li><Link href="#" className="hover:text-[#012d1d]">SEC Risk Factors</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Resources</h4>
+          <ul className="space-y-4 text-sm text-[#414844]">
+            <li><Link href="#" className="hover:text-[#012d1d]">Methodology</Link></li>
+            <li><Link href="#" className="hover:text-[#012d1d]">API Documentation</Link></li>
+            <li><Link href="#" className="hover:text-[#012d1d]">System Status</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-widest mb-6">Connect</h4>
+          <ul className="space-y-4 text-sm text-[#414844]">
+            <li><Link href="#" className="hover:text-[#012d1d]">Intelligence Brief</Link></li>
+            <li><Link href="#" className="hover:text-[#012d1d]">Contact Curators</Link></li>
+          </ul>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-[#c1c8c2] flex flex-col md:flex-row justify-between items-center gap-4 text-[#414844]">
+        <p className="text-[10px] uppercase tracking-widest">Designed for the conservatory</p>
+        <div className="flex gap-6 text-[10px] uppercase tracking-widest">
+          <Link href="#">Privacy</Link>
+          <span>//</span>
+          <Link href="#">Terms</Link>
+          <span>//</span>
+          <Link href="#">Cookies</Link>
         </div>
       </div>
     </footer>

@@ -1,36 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { Zap, Github, Activity } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { CircleUser, Bell, LayoutDashboard, Network, Shield } from "lucide-react";
 
 export function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 w-full bg-surface/80 backdrop-blur-xl transition-all duration-300">
-      <div className="container mx-auto flex h-24 items-center justify-between px-6 lg:px-12">
-        <div className="flex items-center gap-4 group cursor-pointer">
-          <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:scale-110 transition-transform duration-500">
-            <Zap className="h-7 w-7 text-white fill-white" />
-          </div>
-          <span className="text-3xl font-serif font-bold tracking-tighter text-primary">RippleTrace</span>
+    <>
+      <header className="border-b border-[#c1c8c2] px-6 py-4 flex items-center justify-between sticky top-0 bg-[#f9faf6]/80 backdrop-blur-md z-50 font-mono">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="text-2xl font-bold tracking-tighter text-[#012d1d]">RippleTrace</Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">Main Dashboard</Link>
+            <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">GraphRAG Visualizer</Link>
+            <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">SEC Risk Factors</Link>
+          </nav>
         </div>
-        
-        <div className="hidden lg:flex items-center gap-12">
-          <Link href="#features" className="text-lg font-bold text-muted-foreground hover:text-primary hover:tracking-wider transition-all duration-300">Features</Link>
-          <Link href="#companies" className="text-lg font-bold text-muted-foreground hover:text-primary hover:tracking-wider transition-all duration-300">Intelligence Node</Link>
-          <Link href="https://github.com" className="flex items-center gap-2 text-lg font-bold text-muted-foreground hover:text-primary hover:tracking-wider transition-all duration-300">
-            <Github className="h-6 w-6" />
-            GitHub
-          </Link>
+        <div className="flex items-center gap-4">
+          <button className="p-2 hover:bg-[#eeeeeb] rounded-full transition-colors text-[#414844]">
+            <CircleUser className="w-6 h-6" />
+          </button>
+          <button className="p-2 hover:bg-[#eeeeeb] rounded-full transition-colors text-[#414844]">
+            <Bell className="w-6 h-6" />
+          </button>
         </div>
+      </header>
 
-        <div className="flex items-center gap-6">
-          <Button variant="ghost" size="lg" className="hidden sm:inline-flex font-bold px-8 text-primary hover:bg-primary/5 rounded-full text-lg">Sign In</Button>
-          <Button size="lg" className="font-bold px-10 shadow-xl shadow-primary/20 rounded-full bg-primary hover:bg-secondary transition-all duration-500 text-lg">
-            Launch Platform
-          </Button>
-        </div>
-      </div>
-    </nav>
+      {/* Mobile Nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#c1c8c2] px-6 py-3 flex justify-around items-center z-50 font-mono">
+        <Link href="#" className="flex flex-col items-center gap-1 text-[#012d1d]">
+          <LayoutDashboard className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase">Main</span>
+        </Link>
+        <Link href="#" className="flex flex-col items-center gap-1 text-[#414844]">
+          <Network className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase">Graph</span>
+        </Link>
+        <Link href="#" className="flex flex-col items-center gap-1 text-[#414844]">
+          <Shield className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase">Risk</span>
+        </Link>
+      </nav>
+    </>
   );
 }
