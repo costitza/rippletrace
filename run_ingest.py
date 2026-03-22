@@ -57,7 +57,19 @@ def main():
             edges_count = len(graph_documents[0].relationships)
             print(f"extracted {nodes_count} nodes and {edges_count} edges")
 
+            # 1. Ingest entities and relationships first
             db_manager.ingest_graph_documents(graph_documents)
+
+            # 2. Link article to those entities
+            entity_ids = [node.id for node in graph_documents[0].nodes]
+            article_metadata = {
+                "url": article['link'],
+                "title": article['title'],
+                "published": article['published'],
+                "snippet": article['content'][:300] + "..." if len(article['content']) > 300 else article['content']
+            }
+            db_manager.save_article_and_links(article_metadata, entity_ids)
+            print(f"linked article to {len(entity_ids)} entities")
 
         else:
             print("failed to extract data")
