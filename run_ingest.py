@@ -2,6 +2,7 @@
 import json
 from dotenv import load_dotenv
 from yfinance import Ticker
+from src.crawlers.utils import is_high_quality_news
 from src.extractor import GroqExtractor
 from src.database import Neo4jManager
 
@@ -33,10 +34,18 @@ def main():
     # print("Fetching SEC Risk Factors...")
     # secfilings_articles = fetch_sec_risk_factors(tickers)
 
-    articles = alpaca_articles + yahoofin_articles #+ secfilings_articles
+    raw_articles = alpaca_articles + yahoofin_articles #+ secfilings_articles
 
-    if not articles:
+    if not raw_articles:
         return
+    
+    articles = []
+    for raw_article in raw_articles:
+        if is_high_quality_news(raw_article['title'], raw_article['content']) is True:
+            articles.append(raw_article)
+        else:
+            print("    Did not append article")
+
     
     extractor = GroqExtractor()
     db_manager = Neo4jManager()
