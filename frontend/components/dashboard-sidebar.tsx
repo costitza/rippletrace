@@ -28,9 +28,9 @@ export function DashboardSidebar() {
 
   return (
     <aside className="w-64 border-r border-[#c1c8c2] flex flex-col bg-[#f3f4f1] font-mono">
-      <div className="p-8 border-b border-[#c1c8c2]">
-        <Link href="/" className="hover:opacity-80 transition-opacity">
-          <h1 className="text-xl font-bold tracking-tighter text-[#012d1d]">RippleTrace</h1>
+      <div className="px-6 py-4 border-b border-[#c1c8c2] flex items-center">
+        <Link href="/" className="text-2xl font-bold tracking-tighter text-[#012d1d] hover:opacity-80 transition-opacity">
+          RippleTrace
         </Link>
       </div>
       
