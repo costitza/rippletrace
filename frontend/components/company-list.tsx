@@ -36,8 +36,7 @@ export function CompanyList({ companies, loading, error }: CompanyListProps) {
         ) : error ? (
           <div className="bg-destructive/10 text-destructive p-8 rounded-lg text-center">
             <p className="font-bold text-lg italic">Error connecting to the risk engine: {error}</p>
-            <p className="mt-2 text-sm opacity-80 font-semibold text-foreground">Ensure your backend server is running on localhost:8000</p>
-          </div>
+            <p className="mt-2 text-sm opacity-80 font-semibold text-foreground">Ensure your backend server is accessible via the API proxy</p>          </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
             {displayedCompanies.map((company) => (

@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { CircleUser, LayoutDashboard, Network, Shield } from "lucide-react";
+import { LayoutDashboard, Network, Shield } from "lucide-react";
+import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 
 export function Navbar() {
+  const { isSignedIn } = useAuth();
+
   return (
     <>
       <header className="border-b border-[#c1c8c2] px-6 py-4 flex items-center justify-between sticky top-0 bg-[#f9faf6]/80 backdrop-blur-md z-50 font-mono">
@@ -16,10 +19,16 @@ export function Navbar() {
           <Link href="/visualizer" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">GraphRAG Visualizer</Link>
           <Link href="#" className="text-sm font-medium text-[#414844] hover:text-[#012d1d] transition-colors">SEC Risk Factors</Link>
         </nav>        
-        <div className="flex-1 flex justify-end">
-          <button className="p-2 hover:bg-[#eeeeeb] rounded-full transition-colors text-[#414844]">
-            <CircleUser className="w-6 h-6" />
-          </button>
+        <div className="flex-1 flex justify-end items-center gap-4">
+          {!isSignedIn ? (
+            <SignInButton mode="modal">
+              <button className="text-sm font-bold bg-[#012d1d] text-white px-4 py-2 rounded-full hover:opacity-90 transition-opacity">
+                Sign In
+              </button>
+            </SignInButton>
+          ) : (
+            <UserButton afterSignOutUrl="/" />
+          )}
         </div>
       </header>
 

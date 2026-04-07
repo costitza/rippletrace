@@ -3,8 +3,11 @@
 import React from 'react';
 import { Leaf } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth, SignInButton } from "@clerk/nextjs";
 
 export function Hero() {
+  const { isSignedIn } = useAuth();
+
   return (
     <section className="px-6 py-20 max-w-7xl mx-auto font-mono">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -15,10 +18,18 @@ export function Hero() {
             rippletrace maps the invisible veins of global trade. utilizing advanced graphrag architectures, we navigate the complex silences of supply chains to predict failure before it propagates.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/dashboard" className="bg-[#012d1d] text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-opacity">
-              Identify Risk
-            </Link>
-            <button className="border border-[#717973] text-[#1a1c1a] px-8 py-4 rounded-full font-bold hover:bg-[#eeeeeb] transition-colors">Explore Graph</button>
+            {isSignedIn ? (
+              <Link href="/dashboard" className="bg-[#012d1d] text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-opacity">
+                Go to Dashboard
+              </Link>
+            ) : (
+              <SignInButton mode="modal">
+                <button className="bg-[#012d1d] text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-opacity">
+                  Identify Risk
+                </button>
+              </SignInButton>
+            )}
+            <Link href="/visualizer" className="border border-[#717973] text-[#1a1c1a] px-8 py-4 rounded-full font-bold hover:bg-[#eeeeeb] transition-colors">Explore Graph</Link>
           </div>
         </div>
         

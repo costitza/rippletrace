@@ -1,8 +1,8 @@
 // frontend/middleware.ts
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Define which routes are protected (e.g., the dashboard)
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
+// Define which routes are protected (e.g., the dashboard and visualizer)
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/visualizer(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {

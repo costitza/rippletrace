@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto_Slab, Manrope } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const robotoSlab = Roboto_Slab({
@@ -25,12 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${robotoSlab.variable} ${manrope.variable} antialiased font-manrope`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="scroll-smooth">
+        <body
+          className={`${robotoSlab.variable} ${manrope.variable} antialiased font-manrope`}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
