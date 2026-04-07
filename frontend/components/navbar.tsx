@@ -23,11 +23,16 @@ export function Navbar() {
           {!isSignedIn ? (
             <SignInButton mode="modal">
               <button className="text-sm font-bold bg-[#012d1d] text-white px-4 py-2 rounded-full hover:opacity-90 transition-opacity">
-                Sign In
+                Identify Risk
               </button>
             </SignInButton>
           ) : (
-            <UserButton afterSignOutUrl="/" />
+            <>
+              <Link href="/dashboard" className="text-sm font-bold bg-[#012d1d] text-white px-4 py-2 rounded-full hover:opacity-90 transition-opacity">
+                Go to Dashboard
+              </Link>
+              <UserButton afterSignOutUrl="/" />
+            </>
           )}
         </div>
       </header>
