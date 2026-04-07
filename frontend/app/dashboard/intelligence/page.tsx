@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Leaf, ArrowLeft, Zap, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { DashboardFooter } from '@/components/dashboard-footer';
 
 interface Article {
   title: string;
@@ -102,16 +103,7 @@ export default function IntelligencePage() {
         )}
       </div>
 
-      <footer className="pt-12 border-t border-[#c1c8c2] flex flex-col md:flex-row justify-between items-center gap-4 text-[#414844]">
-         <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest">
-           <span>Protocol 7.21</span>
-           <span className="text-[#c1c8c2]">|</span>
-           <span>Lat: 34.0522 N Long: 118.2437 W</span>
-         </div>
-         <p className="text-[10px] uppercase tracking-widest">
-           © 2024 RippleTrace Labs // <span className="text-[#012d1d]">Securing the Digital Conservatory</span>
-         </p>
-      </footer>
+      <DashboardFooter />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Leaf, ArrowRight, Zap, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { DashboardFooter } from '@/components/dashboard-footer';
 
 interface Article {
   title: string;
@@ -137,17 +138,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-import { DashboardFooter } from '@/components/dashboard-footer';
-
-export default function DashboardPage() {
-  // ... rest of component
-  return (
-    <div className="space-y-12">
-      {/* existing content */}
       <DashboardFooter />
-    </div>
-  );
-}
     </div>
   );
 }
