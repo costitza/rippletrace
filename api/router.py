@@ -66,48 +66,102 @@ def get_tickers(session = Depends(get_db)):
         return {"tickers": tickers}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
 
-@router.get("/graph/{ticker}")
-def get_ticker_graph(ticker: str = Path(..., description="The ticker ID to search for"), session = Depends(get_db)):
-    """Fetches the immediate subgraph (nodes and links) for a specific ticker."""
+@router.get("/company/details/{ticker}")
+def get_company_details(ticker: str, session = Depends(get_db)):
+    """Fetches details of the company associated with a specific ticker."""
     query = """
-    MATCH (n {id: $ticker})-[r]-(m)
-    RETURN n, r, m
-    LIMIT 100
+    MATCH (t {id: $ticker})<-[:TRADES_AS]-(c:Company)
+    RETURN c
     """
     try:
         result = session.run(query, ticker=ticker.upper())
+        record = result.single()
+        if record:
+            return dict(record["c"])
+        else:
+            query_fb = "MATCH (c:Company {id: $ticker}) RETURN c"
+            result_fb = session.run(query_fb, ticker=ticker.upper())
+            record_fb = result_fb.single()
+            if record_fb:
+                return dict(record_fb["c"])
+            return None
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/graph/{ticker}")
+def get_ticker_graph(ticker: str = Path(..., description="The ticker ID to search for"), session = Depends(get_db)):
+    """
+    Fetches EVERYTHING in a 2-hop radius of the ticker.
+    Standardizes ID mapping to ensure relationships (links) are correctly identified.
+    """
+    query = """
+    MATCH (n {id: $ticker})
+    OPTIONAL MATCH (n)-[r1]-(m)
+    OPTIONAL MATCH (m)-[r2]-(o)
+    WHERE o IS NULL OR o <> n
+    RETURN n, r1, m, r2, o
+    LIMIT 1000
+    """
+    try:
+        result = session.run(query, ticker=ticker.upper())
+        records = list(result)
         
         nodes = {}
         links = []
-        
-        for record in result:
-            n = record["n"]
-            m = record["m"]
-            r = record["r"]
-            
-            # Helper to extract a usable ID and label
-            def parse_node(node):
-                node_id = node.get("id") or node.get("name") or str(node.element_id)
+        # Identity Map: element_id -> frontend display_id
+        # Standardizing on string element_ids for maximum reliability
+        internal_to_display = {}
+
+        def register(node):
+            if node is None: return None
+            # Unique ID for graph display (id property > name property > element_id)
+            d_id = node.get("id") or node.get("name") or str(node.element_id)
+            if d_id not in nodes:
                 labels = list(node.labels)
-                return {"id": node_id, "label": labels[0] if labels else "Unknown", "properties": dict(node)}
+                nodes[d_id] = {
+                    "id": d_id,
+                    "label": labels[0] if labels else "Entity",
+                    "properties": dict(node)
+                }
+            internal_to_display[node.element_id] = d_id
+            return d_id
+
+        # Pass 1: Extract all unique nodes
+        for record in records:
+            register(record["n"])
+            register(record["m"])
+            register(record["o"])
+
+        # Pass 2: Map relationships using the identity map
+        for record in records:
+            # Relationship 1 (Ticker <-> Neighbor)
+            r1 = record["r1"]
+            if r1:
+                src = internal_to_display.get(r1.start_node)
+                tgt = internal_to_display.get(r1.end_node)
+                if src and tgt:
+                    links.append({"source": src, "target": tgt, "type": r1.type})
             
-            n_data = parse_node(n)
-            m_data = parse_node(m)
+            # Relationship 2 (Neighbor <-> Next Neighbor)
+            r2 = record["r2"]
+            if r2:
+                src2 = internal_to_display.get(r2.start_node)
+                tgt2 = internal_to_display.get(r2.end_node)
+                if src2 and tgt2:
+                    links.append({"source": src2, "target": tgt2, "type": r2.type})
             
-            nodes[n_data["id"]] = n_data
-            nodes[m_data["id"]] = m_data
-            
-            links.append({
-                "source": n_data["id"] if r.start_node == n else m_data["id"],
-                "target": m_data["id"] if r.start_node == n else n_data["id"],
-                "type": r.type
-            })
-            
-        return {
-            "nodes": list(nodes.values()),
-            "links": links
-        }
+        # Semantic deduplication to avoid cluttered graph
+        unique_links = []
+        seen = set()
+        for l in links:
+            # Sort source/target so direction doesn't double-link but preserved for display
+            key = tuple(sorted([l["source"], l["target"]])) + (l["type"],)
+            if key not in seen:
+                unique_links.append(l)
+                seen.add(key)
+
+        return {"nodes": list(nodes.values()), "links": unique_links}
     except Exception as e:
+        print(f"Graph Engine Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
