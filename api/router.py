@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from .schemas import RiskQuery
 from .dependencies import get_db
+from fastapi import Path
 
 # Create a router specifically for the /api prefix
 router = APIRouter(prefix="/api")
@@ -54,3 +55,59 @@ def assess_risk(query: RiskQuery, session = Depends(get_db)):
         "raw_path": [],
         "ai_analysis": "AI generation coming soon."
     }
+
+@router.get("/tickers")
+def get_tickers(session = Depends(get_db)):
+    """Fetches a list of all tickers available in the database."""
+    query = "MATCH (t:Ticker) RETURN t.id AS ticker ORDER BY ticker"
+    try:
+        result = session.run(query)
+        tickers = [record["ticker"] for record in result]
+        return {"tickers": tickers}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+
+@router.get("/graph/{ticker}")
+def get_ticker_graph(ticker: str = Path(..., description="The ticker ID to search for"), session = Depends(get_db)):
+    """Fetches the immediate subgraph (nodes and links) for a specific ticker."""
+    query = """
+    MATCH (n {id: $ticker})-[r]-(m)
+    RETURN n, r, m
+    LIMIT 100
+    """
+    try:
+        result = session.run(query, ticker=ticker.upper())
+        
+        nodes = {}
+        links = []
+        
+        for record in result:
+            n = record["n"]
+            m = record["m"]
+            r = record["r"]
+            
+            # Helper to extract a usable ID and label
+            def parse_node(node):
+                node_id = node.get("id") or node.get("name") or str(node.element_id)
+                labels = list(node.labels)
+                return {"id": node_id, "label": labels[0] if labels else "Unknown", "properties": dict(node)}
+            
+            n_data = parse_node(n)
+            m_data = parse_node(m)
+            
+            nodes[n_data["id"]] = n_data
+            nodes[m_data["id"]] = m_data
+            
+            links.append({
+                "source": n_data["id"] if r.start_node == n else m_data["id"],
+                "target": m_data["id"] if r.start_node == n else n_data["id"],
+                "type": r.type
+            })
+            
+        return {
+            "nodes": list(nodes.values()),
+            "links": links
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
