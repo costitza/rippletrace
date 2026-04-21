@@ -43,6 +43,7 @@ def fetch_company_info(ticker_symbol):
         
         # Extract required fields with fallback
         company_data = {
+            "symbol": ticker_symbol,
             "name": info.get("longName") or info.get("shortName") or ticker_symbol,
             "short_name": info.get("shortName") or ticker_symbol,
             "country": info.get("country") or "Unknown",

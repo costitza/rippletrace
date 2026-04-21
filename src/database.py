@@ -19,12 +19,19 @@ class Neo4jManager:
         SET c.name = $name,
             c.shortName = $short_name,
             c.sector = $sector
+        
+        MERGE (t:Ticker {id: $symbol})
+        SET t.name = $symbol
+        
+        MERGE (c)-[:TRADES_AS]->(t)
+
         MERGE (r:Region {id: $country})
         SET r.name = $country
         MERGE (c)-[:LOCATED_IN]->(r)
         """
 
         params = {
+            "symbol": company_data['symbol'],
             "name": company_data['name'],
             "short_name": company_data['short_name'],
             "country": company_data['country'],
