@@ -81,12 +81,6 @@ export default function VisualizerPage() {
           );
         }
       });
-      
-      if (brokenLinks === 0 && data.links.length > 0) {
-        console.log("✅ All links successfully match to existing node IDs.");
-      }
-      // ==========================================
-
       setGraphData(data);
     } catch (error) {
       console.error('Error fetching graph data:', error);
@@ -157,6 +151,40 @@ export default function VisualizerPage() {
                     linkDirectionalParticles={2}
                     linkDirectionalParticleSpeed={0.005}
                     linkDirectionalParticleWidth={2}
+
+                    nodeCanvasObject={(node: any, ctx, globalScale) => {
+                    // 1. Draw the physical node circle
+                    const size = 6; // matches nodeRelSize
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, size, 0, 2 * Math.PI, false);
+                    ctx.fillStyle = node.color || '#c1c8c2';
+                    ctx.fill();
+
+                    // 2. Determine the best label to display
+                    const label = node.properties?.name || node.properties?.title || node.id;
+                    
+                    // 3. Configure text styling (scales dynamically when you zoom in/out)
+                    const fontSize = 10 / globalScale;
+                    ctx.font = `${fontSize}px sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'top';
+
+                    // 4. Draw a tiny, subtle background behind the text for readability
+                    const textWidth = ctx.measureText(label).width;
+                    const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
+                    
+                    ctx.fillStyle = 'rgba(249, 250, 246, 0.7)'; // 70% transparent off-white
+                    ctx.fillRect(
+                      node.x - bckgDimensions[0] / 2, 
+                      node.y + size + 2, // Shifted slightly below the circle
+                      bckgDimensions[0], 
+                      bckgDimensions[1]
+                    );
+
+                    // 5. Draw the actual text
+                    ctx.fillStyle = '#414844'; // Dark gray/green text
+                    ctx.fillText(label, node.x, node.y + size + 2);
+                  }}
                    />
                  </div>
                ) : (

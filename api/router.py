@@ -92,31 +92,36 @@ def get_company_details(ticker: str, session = Depends(get_db)):
 @router.get("/graph/{entity_id}")
 def get_entity_graph(entity_id: str, session = Depends(get_db)):
     """
-    Fetches only nodes DIRECTLY connected to the entity (1-hop).
-    Ensures robust ID mapping to remove duplicates and fix rendering lines.
+    Fetches 1-hop graph connections.
+    Uses Cypher 'coalesce' and 'startNode()' to guarantee 100% accurate link mapping
+    bypassing Python driver relationship reference issues.
     """
     query = """
-    MATCH (n {id: $entity_id})
+    MATCH (n)
+    WHERE n.id = $entity_id OR n.name = $entity_id
     OPTIONAL MATCH (n)-[r]-(m)
-    RETURN n, r, m
+    WITH n, r, m, startNode(r) AS src, endNode(r) AS tgt
+    RETURN 
+        n, 
+        m, 
+        type(r) AS rel_type,
+        coalesce(src.id, src.name, elementId(src)) AS src_id,
+        coalesce(tgt.id, tgt.name, elementId(tgt)) AS tgt_id
     """
     try:
-        # Standardize the search entity_id just in case
         result = session.run(query, entity_id=entity_id)
         records = list(result)
         
         nodes = {}
         links = []
-        id_map = {}
 
         def register(node):
             if node is None: return None
             
-            # 1. Extract raw ID
-            raw_id = node.get("id") or node.get("name") or str(node.element_id)
+            # Extract raw ID (fallback to driver-specific IDs if no property exists)
+            raw_id = node.get("id") or node.get("name") or str(getattr(node, "element_id", getattr(node, "id", "")))
             
-            # 2. NORMALIZE ID: Strip whitespace and uppercase to fix duplicates 
-            # (e.g., "TSMC " and "tsmc" both become "TSMC")
+            # NORMALIZE: Strip and Uppercase
             d_id = str(raw_id).strip().upper()
             
             if d_id not in nodes:
@@ -127,33 +132,30 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
                     "properties": dict(node)
                 }
             else:
-                # 3. MERGE PROPERTIES: If the DB has physical duplicate nodes,
-                # merge their properties so we don't lose data.
                 nodes[d_id]["properties"].update(dict(node))
-                
-            # 4. Map the internal Neo4j reference to our unified d_id
-            id_map[node.element_id] = d_id
-            if hasattr(node, "id"):
-                id_map[node.id] = d_id
                 
             return d_id
 
         for record in records:
+            # Register the nodes
             n_id = register(record["n"])
             m_id = register(record["m"])
             
-            r = record["r"]
-            if r and n_id and m_id:
-                # 5. SAFE RELATIONSHIP EXTRACTION
-                # Neo4j python driver sometimes returns Node objects for start_node/end_node
-                start_ref = r.start_node.element_id if hasattr(r.start_node, "element_id") else r.start_node
-                end_ref = r.end_node.element_id if hasattr(r.end_node, "element_id") else r.end_node
+            # Grab the direct strings from our new Cypher query
+            rel_type = record["rel_type"]
+            src_raw = record["src_id"]
+            tgt_raw = record["tgt_id"]
+            
+            if rel_type and src_raw and tgt_raw:
+                # Apply the exact same normalization to the link targets
+                src_clean = str(src_raw).strip().upper()
+                tgt_clean = str(tgt_raw).strip().upper()
                 
-                src = id_map.get(start_ref)
-                tgt = id_map.get(end_ref)
-                
-                if src and tgt:
-                    links.append({"source": src, "target": tgt, "type": r.type})
+                links.append({
+                    "source": src_clean, 
+                    "target": tgt_clean, 
+                    "type": rel_type
+                })
             
         # Deduplicate links
         unique_links = []
