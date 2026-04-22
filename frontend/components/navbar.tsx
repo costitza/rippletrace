@@ -31,7 +31,9 @@ export function Navbar() {
               <Link href="/dashboard" className="text-sm font-bold bg-[#012d1d] text-white px-4 py-2 rounded-full hover:opacity-90 transition-opacity">
                 Go to Dashboard
               </Link>
-              <UserButton afterSignOutUrl="/" />
+              <div className="relative z-[100]">
+  <UserButton afterSignOutUrl="/"/>
+</div>
             </>
           )}
         </div>

@@ -16,7 +16,9 @@ export function DashboardHeader() {
       
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-3">
-           <UserButton afterSignOutUrl="/" />
+           <div className="relative z-[100]">
+  <UserButton afterSignOutUrl="/"/>
+</div>
         </div>
       </div>
     </header>
