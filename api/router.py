@@ -92,25 +92,21 @@ def get_company_details(ticker: str, session = Depends(get_db)):
 @router.get("/graph/{entity_id}")
 def get_entity_graph(entity_id: str, session = Depends(get_db)):
     """
-    Fetches 1-hop graph connections.
-    Uses Cypher 'coalesce' and 'startNode()' to guarantee 100% accurate link mapping
-    bypassing Python driver relationship reference issues.
+    Fetches up to 2-hop graph connections.
+    Uses the Python driver's native Path parsing to prevent Cypher null-pointer crashes.
     """
+    # Simply return the anchor and the path. No complex Cypher unwinding.
     query = """
-    MATCH (n)
-    WHERE n.id = $entity_id OR n.name = $entity_id
-    OPTIONAL MATCH (n)-[r]-(m)
-    WITH n, r, m, startNode(r) AS src, endNode(r) AS tgt
-    RETURN 
-        n, 
-        m, 
-        type(r) AS rel_type,
-        coalesce(src.id, src.name, elementId(src)) AS src_id,
-        coalesce(tgt.id, tgt.name, elementId(tgt)) AS tgt_id
+    MATCH (anchor)
+    WHERE anchor.id = $entity_id OR anchor.name = $entity_id
+    OPTIONAL MATCH path = (anchor)-[*1..2]-(m)
+
+    WHERE NONE(n IN nodes(path) WHERE "Region" IN labels(n))
+    RETURN anchor, path
+    LIMIT 1000
     """
     try:
         result = session.run(query, entity_id=entity_id)
-        records = list(result)
         
         nodes = {}
         links = []
@@ -118,10 +114,7 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
         def register(node):
             if node is None: return None
             
-            # Extract raw ID (fallback to driver-specific IDs if no property exists)
             raw_id = node.get("id") or node.get("name") or str(getattr(node, "element_id", getattr(node, "id", "")))
-            
-            # NORMALIZE: Strip and Uppercase
             d_id = str(raw_id).strip().upper()
             
             if d_id not in nodes:
@@ -136,26 +129,28 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
                 
             return d_id
 
-        for record in records:
-            # Register the nodes
-            n_id = register(record["n"])
-            m_id = register(record["m"])
+        for record in result:
+            # 1. ALWAYS register the anchor (prevents blank screens if 0 links exist)
+            register(record["anchor"])
             
-            # Grab the direct strings from our new Cypher query
-            rel_type = record["rel_type"]
-            src_raw = record["src_id"]
-            tgt_raw = record["tgt_id"]
-            
-            if rel_type and src_raw and tgt_raw:
-                # Apply the exact same normalization to the link targets
-                src_clean = str(src_raw).strip().upper()
-                tgt_clean = str(tgt_raw).strip().upper()
-                
-                links.append({
-                    "source": src_clean, 
-                    "target": tgt_clean, 
-                    "type": rel_type
-                })
+            # 2. Extract path safely
+            path = record["path"]
+            if path is not None:
+                # Register all intermediate nodes
+                for node in path.nodes:
+                    register(node)
+                    
+                # Register all relationships in the path natively via Python
+                for rel in path.relationships:
+                    src_id = register(rel.start_node)
+                    tgt_id = register(rel.end_node)
+                    
+                    if src_id and tgt_id:
+                        links.append({
+                            "source": src_id,
+                            "target": tgt_id,
+                            "type": rel.type
+                        })
             
         # Deduplicate links
         unique_links = []

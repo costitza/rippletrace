@@ -16,7 +16,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "RippleTrace | Graph-Based Risk Intelligence",
+  title: "RippleTrace",
   description: "Predict global supply chain disruptions using AI-powered GraphRAG.",
 };
 
