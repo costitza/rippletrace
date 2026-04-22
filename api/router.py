@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api")
 @router.get("/companies")
 def get_companies(session = Depends(get_db)):
     """Fetches a list of all companies in the database."""
-    query = "MATCH (c:Company) RETURN c.id AS id, c.name AS name ORDER BY name"
+    query = "MATCH (c:Company) RETURN DISTINCT c.id AS id, c.name AS name ORDER BY name"
     try:
         result = session.run(query)
         companies = [{"id": record["id"], "name": record["name"]} for record in result]
@@ -101,6 +101,7 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
     RETURN n, r, m
     """
     try:
+        # Standardize the search entity_id just in case
         result = session.run(query, entity_id=entity_id)
         records = list(result)
         
@@ -110,21 +111,31 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
 
         def register(node):
             if node is None: return None
-            # Standardize ID: property 'id' is our primary key
-            d_id = node.get("id") or node.get("name") or str(node.element_id)
+            
+            # 1. Extract raw ID
+            raw_id = node.get("id") or node.get("name") or str(node.element_id)
+            
+            # 2. NORMALIZE ID: Strip whitespace and uppercase to fix duplicates 
+            # (e.g., "TSMC " and "tsmc" both become "TSMC")
+            d_id = str(raw_id).strip().upper()
+            
             if d_id not in nodes:
                 labels = list(node.labels)
                 nodes[d_id] = {
-                    "id": d_id,
+                    "id": d_id, 
                     "label": labels[0] if labels else "Entity",
                     "properties": dict(node)
                 }
-            # Map both element_id and numeric id to d_id
+            else:
+                # 3. MERGE PROPERTIES: If the DB has physical duplicate nodes,
+                # merge their properties so we don't lose data.
+                nodes[d_id]["properties"].update(dict(node))
+                
+            # 4. Map the internal Neo4j reference to our unified d_id
             id_map[node.element_id] = d_id
-            try:
+            if hasattr(node, "id"):
                 id_map[node.id] = d_id
-            except:
-                pass
+                
             return d_id
 
         for record in records:
@@ -133,9 +144,14 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
             
             r = record["r"]
             if r and n_id and m_id:
-                # Get mapped IDs for the link
-                src = id_map.get(r.start_node)
-                tgt = id_map.get(r.end_node)
+                # 5. SAFE RELATIONSHIP EXTRACTION
+                # Neo4j python driver sometimes returns Node objects for start_node/end_node
+                start_ref = r.start_node.element_id if hasattr(r.start_node, "element_id") else r.start_node
+                end_ref = r.end_node.element_id if hasattr(r.end_node, "element_id") else r.end_node
+                
+                src = id_map.get(start_ref)
+                tgt = id_map.get(end_ref)
+                
                 if src and tgt:
                     links.append({"source": src, "target": tgt, "type": r.type})
             
@@ -143,13 +159,13 @@ def get_entity_graph(entity_id: str, session = Depends(get_db)):
         unique_links = []
         seen = set()
         for l in links:
-            # Directional key to preserve semantics but remove exact duplicates
             key = (l["source"], l["target"], l["type"])
             if key not in seen:
                 unique_links.append(l)
                 seen.add(key)
 
         return {"nodes": list(nodes.values()), "links": unique_links}
+        
     except Exception as e:
         print(f"Graph Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))

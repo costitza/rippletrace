@@ -24,7 +24,21 @@ export default function VisualizerPage() {
       try {
         const response = await fetch('/api/companies');
         const data = await response.json();
-        setCompanies(data.companies || []);
+        
+        let rawCompanies = data.companies || [];
+        
+        // Safety: If backend returns strings instead of objects, normalize them
+        if (rawCompanies.length > 0 && typeof rawCompanies[0] === 'string') {
+          rawCompanies = rawCompanies.map((name: string) => ({ id: name, name: name }));
+        }
+
+        // DEDUPLICATION LOGIC:
+        // Use a Map to ensure we only keep one company per unique ID
+        const uniqueCompanies = Array.from(
+          new Map(rawCompanies.map((c: Company) => [c.id, c])).values()
+        ) as Company[];
+
+        setCompanies(uniqueCompanies);
       } catch (error) {
         console.error('Error fetching companies:', error);
       } finally {
@@ -41,6 +55,38 @@ export default function VisualizerPage() {
     try {
       const response = await fetch(`/api/graph/${encodeURIComponent(company.id)}`);
       const data = await response.json();
+      
+      // ==========================================
+      // DEBUGGING DIAGNOSTICS
+      // ==========================================
+      console.log("🟢 RAW API NODES:", data.nodes);
+      console.log("🔵 RAW API LINKS:", data.links);
+      
+      // Create a quick lookup array of all node IDs
+      const allNodeIds = data.nodes.map((n: any) => n.id);
+      
+      // Check every link to see if it points to a ghost node
+      let brokenLinks = 0;
+      data.links.forEach((link: any, index: number) => {
+        const sourceExists = allNodeIds.includes(link.source);
+        const targetExists = allNodeIds.includes(link.target);
+        
+        if (!sourceExists || !targetExists) {
+          brokenLinks++;
+          console.warn(
+            `❌ BROKEN LINK at index ${index}:\n`,
+            `Source: '${link.source}' (Exists: ${sourceExists})\n`,
+            `Target: '${link.target}' (Exists: ${targetExists})\n`,
+            `Link Type: ${link.type}`
+          );
+        }
+      });
+      
+      if (brokenLinks === 0 && data.links.length > 0) {
+        console.log("✅ All links successfully match to existing node IDs.");
+      }
+      // ==========================================
+
       setGraphData(data);
     } catch (error) {
       console.error('Error fetching graph data:', error);
@@ -48,6 +94,18 @@ export default function VisualizerPage() {
       setLoadingGraph(false);
     }
   };
+
+  const safeGraphData = React.useMemo(() => {
+    return {
+      nodes: graphData.nodes.map(n => ({ ...n })),
+      links: graphData.links.map(l => ({
+        ...l,
+        // If the graph already mutated it into an object, extract the string ID back out
+        source: typeof l.source === 'object' ? l.source.id : l.source,
+        target: typeof l.target === 'object' ? l.target.id : l.target
+      }))
+    };
+  }, [graphData]);
 
   return (
     <DashboardLayout>
@@ -73,30 +131,32 @@ export default function VisualizerPage() {
                {graphData.nodes.length > 0 ? (
                  <div className="w-full h-full">
                    <ForceGraph2D
-                     graphData={graphData}
-                     nodeLabel={(node: any) => `${node.label}: ${node.id}`}
-                     nodeAutoColorBy="label"
-                     linkDirectionalArrowLength={6}
-                     linkDirectionalArrowRelPos={1}
-                     linkDirectionalParticles={2}
-                     linkDirectionalParticleSpeed={0.005}
-                     linkColor={() => '#012d1d'}
-                     linkWidth={2}
-                     nodeCanvasObject={(node: any, ctx, globalScale) => {
-                       const label = node.id;
-                       const fontSize = 12 / globalScale;
-                       ctx.font = `${fontSize}px Arial`;
-                       const textWidth = ctx.measureText(label).width;
-                       const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.4);
-
-                       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                       ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, bckgDimensions[0] as number, bckgDimensions[1] as number);
-
-                       ctx.textAlign = 'center';
-                       ctx.textBaseline = 'middle';
-                       ctx.fillStyle = node.color;
-                       ctx.fillText(label, node.x, node.y);
-                     }}
+                    graphData={safeGraphData}
+                    // 1. Explicitly tell the engine what the primary key is
+                    nodeId="id" 
+                    
+                    /// Clean Tooltips
+                    nodeLabel={(node: any) => {
+                      const name = node.properties?.name || node.id;
+                      return `<div style="background: #012d1d; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-family: sans-serif;">
+                                <strong>${node.label || 'Entity'}</strong>: ${name}
+                              </div>`;
+                    }}
+                    
+                    // Clean Nodes
+                    nodeAutoColorBy="label"
+                    nodeRelSize={6}
+                    
+                    // Link Visibility Rules
+                    linkColor={() => '#9ca3af'} // Neutral visible gray
+                    linkWidth={1.5}
+                    linkDirectionalArrowLength={4}
+                    linkDirectionalArrowRelPos={1}
+                    
+                    // Optional: Adds moving particles to the links so you can see the direction of the supply chain!
+                    linkDirectionalParticles={2}
+                    linkDirectionalParticleSpeed={0.005}
+                    linkDirectionalParticleWidth={2}
                    />
                  </div>
                ) : (
